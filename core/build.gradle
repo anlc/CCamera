@@ -6,7 +6,6 @@ android {
     compileSdk rootProject.ext.compileSdk
 
     defaultConfig {
-        applicationId "com.c.camera"
         minSdk rootProject.ext.minSdk
         targetSdk rootProject.ext.targetSdk
         versionCode rootProject.ext.versionCode

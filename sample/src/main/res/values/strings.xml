@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Sample</string>
+    <string name="open_surfaceview_camera">open SurfaceView Camera</string>
 </resources>

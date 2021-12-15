@@ -24,4 +24,6 @@ ext {
 
     versionCode = 1
     versionName = "1.0"
+
+    activityVersion = "1.4.0"
 }
