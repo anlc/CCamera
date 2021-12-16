@@ -1,17 +1,12 @@
 package com.c.sample;
 
-import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
-import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,8 +21,11 @@ public class MainActivity extends AppCompatActivity {
             }
         }).launch(Manifest.permission.CAMERA);
 
-        findViewById(R.id.btn_surface_view).setOnClickListener(v -> {
-            startActivity(new Intent(MainActivity.this, SurfaceViewActivity.class));
-        });
+        findViewById(R.id.btn_surface_view).setOnClickListener(v -> startActivity(SurfaceViewActivity.class));
+        findViewById(R.id.btn_texture_view).setOnClickListener(v -> startActivity(TextureViewActivity.class));
+    }
+
+    private void startActivity(Class<?> cls) {
+        startActivity(new Intent(MainActivity.this, cls));
     }
 }
