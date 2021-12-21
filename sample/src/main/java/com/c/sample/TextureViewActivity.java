@@ -103,7 +103,6 @@ public class TextureViewActivity extends AppCompatActivity {
                 try {
                     // 开始预览，即一直发送预览的请求
                     session.setRepeatingRequest(captureRequest.build(), null, mHandler);
-
                 } catch (CameraAccessException e) {
                     toast("request failed");
                     e.printStackTrace();

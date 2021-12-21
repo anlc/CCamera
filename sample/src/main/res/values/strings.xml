@@ -2,4 +2,5 @@
     <string name="app_name">Sample</string>
     <string name="open_surfaceview_camera">open SurfaceView Camera</string>
     <string name="open_textureview_camera">open TextureView Camera</string>
+    <string name="open_glsurface_camera">open GLSurfaceView Camera</string>
 </resources>

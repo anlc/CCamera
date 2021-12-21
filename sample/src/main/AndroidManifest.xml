@@ -22,6 +22,7 @@
         </activity>
         <activity android:name=".SurfaceViewActivity" />
         <activity android:name=".TextureViewActivity" />
+        <activity android:name=".GLSurfaceViewActivity" />
     </application>
 
 </manifest>
