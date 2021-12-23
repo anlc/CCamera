@@ -1,15 +1,16 @@
 package com.c.core;
 
-import android.content.Context;
-import android.hardware.camera2.CameraManager;
+import android.hardware.camera2.CameraAccessException;
 
 public class CameraProxy {
 
-    private Context mContext;
+    private Camera mCamera;
 
-    public CameraProxy(Context context) {
-        this.mContext = context;
+    public CameraProxy(Camera camera) {
+        mCamera = camera;
+    }
 
-        CameraManager cameraManager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
+    public void open(String id) throws CameraAccessException {
+        mCamera.open(id);
     }
 }
