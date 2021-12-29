@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_surface_view).setOnClickListener(v -> startActivity(SurfaceViewActivity.class));
         findViewById(R.id.btn_texture_view).setOnClickListener(v -> startActivity(TextureViewActivity.class));
         findViewById(R.id.btn_gl_surface_view).setOnClickListener(v -> startActivity(GLSurfaceViewActivity.class));
+        findViewById(R.id.btn_camera).setOnClickListener(v -> startActivity(CameraActivity.class));
     }
 
     private void startActivity(Class<?> cls) {
