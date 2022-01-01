@@ -114,7 +114,8 @@ public class CameraActivity extends AppCompatActivity {
         File outFile = new File(path, name);
         Log.d(TAG, "saveImage. filepath: " + outFile.getAbsolutePath());
         Bitmap bitmap = BitmapFactory.decodeByteArray(jpeg, 0, jpeg.length);
-        Bitmap cacheBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+//        Bitmap cacheBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Bitmap cacheBitmap = Bitmap.createBitmap(bitmap);
         Canvas canvas = new Canvas(cacheBitmap);
         Paint paint = new Paint();
         paint.setColor(Color.RED);

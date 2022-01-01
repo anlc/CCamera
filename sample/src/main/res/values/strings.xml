@@ -4,4 +4,5 @@
     <string name="open_textureview_camera">open TextureView Camera</string>
     <string name="open_glsurface_camera">open GLSurfaceView Camera</string>
     <string name="open_camera_activity">open camera activity</string>
+    <string name="open_test_activity">open test activity</string>
 </resources>
