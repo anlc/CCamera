@@ -21,4 +21,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <ImageView
+        android:id="@+id/iv_thumbnail"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_constraintBottom_toBottomOf="@id/iv_shutter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_shutter"
+        app:layout_constraintTop_toTopOf="@id/iv_shutter" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

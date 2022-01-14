@@ -7,6 +7,8 @@ import android.os.Bundle;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.c.sample.camera.CameraActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
