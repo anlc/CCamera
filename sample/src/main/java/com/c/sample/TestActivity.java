@@ -2,6 +2,7 @@ package com.c.sample;
 
 import android.content.ContentResolver;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
@@ -9,6 +10,8 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -22,7 +25,61 @@ public class TestActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setResizeView();
+    }
 
+    private void setRotateView() {
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.img);
+        Canvas canvas = new Canvas(bitmap.copy(Bitmap.Config.ARGB_8888, true));
+        canvas.drawColor(Color.BLACK);
+        ImageView imageView = new ImageView(this);
+        imageView.setImageBitmap(bitmap);
+        setContentView(imageView, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        findViewById(android.R.id.content).setBackgroundColor(Color.BLACK);
+    }
+
+    private void setResizeView() {
+        Bitmap bitmap = Bitmap.createBitmap(800, 600, Bitmap.Config.ARGB_8888);
+
+        Canvas canvas = new Canvas(bitmap);
+        canvas.drawColor(Color.BLACK);
+
+        Bitmap dest = Bitmap.createBitmap(80, 50, Bitmap.Config.ARGB_8888);
+        Canvas destCanvas = new Canvas(dest);
+        destCanvas.drawColor(Color.WHITE);
+        destCanvas.drawText("123456", 20, 50, getWatermarkTextPaint(10));
+
+
+        dest = resizeBitmap(bitmap, dest, 1, 90);
+
+        bitmap = addBitmap(bitmap, dest, 80, 80);
+
+        ImageView imageView = new ImageView(this);
+        imageView.setImageBitmap(bitmap);
+        setContentView(imageView, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+    }
+
+    private Bitmap resizeBitmap(Bitmap srcBitmap, Bitmap bitmap, float scale, float degrees) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(degrees, bitmap.getWidth() / 2f, bitmap.getHeight() / 2f);
+        Bitmap resultBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+        bitmap.recycle();
+        return resultBitmap;
+    }
+
+    private Bitmap addBitmap(Bitmap srcBitmap, Bitmap bitmap, int left, int top) {
+        Bitmap destBitmap = Bitmap.createBitmap(srcBitmap.getWidth(), srcBitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(destBitmap);
+        canvas.drawBitmap(srcBitmap, 0, 0, null);
+        canvas.drawBitmap(bitmap, left, top, null);
+        canvas.save();
+        canvas.restore();
+        srcBitmap.recycle();
+        bitmap.recycle();
+        return destBitmap;
+    }
+
+    private void setScaleView() {
         LinearLayout linearLayout = new LinearLayout(this);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         ImageView imageView = new ImageView(this);
@@ -104,7 +161,7 @@ public class TestActivity extends AppCompatActivity {
 
     public static Paint getWatermarkTextPaint(int textSize) {
         Paint paint = new Paint();
-        paint.setColor(Color.WHITE);
+        paint.setColor(Color.BLACK);
         paint.setAntiAlias(true);
         paint.setTextSize(textSize);
         paint.setTextAlign(Paint.Align.LEFT);

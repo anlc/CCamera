@@ -1,0 +1,37 @@
+@startuml
+
+init -> service_manager: main
+service_manager -> binder: binder_open(driver, 128*1024)
+binder -> kernel: open(driver, O_RDWR | O_CLOEXEC)
+kernel -> binder: return fd
+binder -> kernel: mmap(NULL, mapsize, PROT_READ, MAP_PRIVATE, bs->fd, 0)
+binder --> service_manager: state
+
+service_manager -> binder: binder_become_context_manager(bs)
+service_manager -> binder: ioctl(bs->fd, BINDER_SET_CONTEXT_MGR, 0)\n注册ServiceManager注册
+binder --> service_manager: state
+
+service_manager -> binder: binder_loop(bs, svcmgr_handler)\n 传入回调函数
+service_manager -> binder: binder_write(bs, readbuf, sizeof(uint32_t)) 读取
+loop
+    binder -> kernel: ioctl(bs->fd, BINDER_WRITE_READ, &bwr)
+    alt 读取到消息
+        binder -> binder: binder_parse(bs, 0, (uintptr_t) readbuf, bwr.read_consumed, func)
+        binder -> binder: bio_init(&reply, rdata, sizeof(rdata), 4)
+        binder -> binder: bio_init_from_txn(&msg, txn)
+        binder -> service_manager: func(bs, txn, &msg, &reply)
+        alt SVC_MGR_GET_SERVICE|SVC_MGR_CHECK_SERVICE
+            service_manager -> service_manager: do_find_service(s, len, txn->sender_euid, txn->sender_pid)\n遍历svclist查询
+        else SVC_MGR_ADD_SERVICE
+            service_manager -> service_manager: do_add_service(bs, s, len, handle, txn->sender_euid, allow_isolated, dumpsys_priority, txn->sender_pid)
+        else SVC_MGR_LIST_SERVICES
+            service_manager -> service_manager: bio_put_string16(reply, si->name)
+        end
+        service_manager --> binder: state
+
+        binder -> binder: binder_send_reply(bs, &reply, txn->data.ptr.buffer, res)
+        binder -> binder: binder_write(bs, &data, sizeof(data))\n bwr.read_size = 0;bwr.write_size = len;表示写入
+        binder -> kernel: ioctl(bs->fd, BINDER_WRITE_READ, &bwr) 写入
+    end
+end
+@enduml

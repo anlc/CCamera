@@ -7,8 +7,11 @@
         <entry key="sample/src/main/res/drawable/moto_watermark.xml" value="0.35572916666666665" />
         <entry key="sample/src/main/res/drawable/photo_mode_action_icon.xml" value="0.35572916666666665" />
         <entry key="sample/src/main/res/layout/activity_camera.xml" value="0.33958333333333335" />
+        <entry key="sample/src/main/res/layout/activity_camera_surface.xml" value="0.2028985507246377" />
+        <entry key="sample/src/main/res/layout/activity_dispatch.xml" value="0.3390625" />
         <entry key="sample/src/main/res/layout/activity_gl_surface.xml" value="0.3390625" />
         <entry key="sample/src/main/res/layout/activity_main.xml" value="0.1651469098277609" />
+        <entry key="sample/src/main/res/layout/activity_scroll.xml" value="0.33958333333333335" />
         <entry key="sample/src/main/res/layout/activity_surface.xml" value="0.33958333333333335" />
         <entry key="sample/src/main/res/layout/activity_texture.xml" value="0.3390625" />
       </map>

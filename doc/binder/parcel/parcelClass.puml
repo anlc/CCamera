@@ -1,0 +1,30 @@
+@startuml
+
+namespace frameworks.base.core.java.android.os{
+    class ServiceManagerProxy{
+    }
+}
+
+namespace frameworks.base.core.java.android.os{
+    class Parcel{
+        - long mNativePtr; // used by native code
+        void writeStrongBinder(IBinder val)
+        void writeStrongInterface(IInterface val)
+        void writeFileDescriptor(FileDescriptor val)
+    }
+}
+
+namespace frameworks.base.core.jni{
+    class android_os_Parcel{
+        void writeStrongBinder(IBinder val)
+        void writeStrongInterface(IInterface val)
+        void writeFileDescriptor(FileDescriptor val)
+    }
+}
+
+namespace frameworks.native.libs.binder{
+    class Parcel{
+    }
+}
+
+@enduml

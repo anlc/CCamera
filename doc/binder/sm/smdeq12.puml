@@ -1,0 +1,20 @@
+@startuml
+
+init -> main: main
+main -> ProcessState: ProcessState::initWithDriver(driver)
+
+ProcessState -> ProcessState: new ProcessState(driver)
+ProcessState -> ProcessState: open_driver(driver)
+ProcessState -> kernel: open(driver, O_RDWR | O_CLOEXEC)
+ProcessState -> kernel: ioctl(fd, BINDER_VERSION, &vers)
+kernel --> ProcessState: state
+ProcessState -> kernel: ioctl(fd, BINDER_SET_MAX_THREADS, &maxThreads)
+kernel --> ProcessState: state
+kernel --> ProcessState: open(driver, O_RDWR | O_CLOEXEC)返回driver的fd
+ProcessState -> ProcessState: mDriverFD = fd
+
+ProcessState --> main: sp<ProcessState> ps
+
+main -> ServiceManager: new ServiceManager(std::make_unique<Access>())
+
+@enduml

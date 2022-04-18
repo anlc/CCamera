@@ -1,0 +1,70 @@
+@startuml
+
+namespace kernel.msm-4.14.drivers.android{
+    class binder{
+        static int __init binder_init(void)
+        static int __init init_binder_device(const char *name)
+        static int binder_open(struct inode *nodp, struct file *filp)
+        static int binder_mmap(struct file *filp, struct vm_area_struct *vma)
+        static long binder_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
+    }
+
+    note right of binder::init_binder_device
+    驱动注册
+    end note
+
+    note right of binder::binder_open
+    初始化 binder_proc 结构体
+    end note
+
+    note right of binder::binder_mmap
+    申请地址, mmap 映射地址
+    end note
+
+    note right of binder::binder_ioctl
+    读写等对binder的各种操作
+    end note
+
+    class binder_fops{
+        .owner = THIS_MODULE
+        .poll = binder_poll
+        .unlocked_ioctl = binder_ioctl
+        .compat_ioctl = binder_ioctl
+        .mmap = binder_mmap
+        .open = binder_open
+        .flush = binder_flush
+        .release = binder_release
+    }
+
+    class binder_proc {
+        struct hlist_node proc_node
+        struct rb_root threads
+        struct rb_root nodes
+        struct rb_root refs_by_desc
+        struct rb_root refs_by_node
+        struct list_head waiting_threads
+        int pid
+        struct task_struct *tsk
+        struct files_struct *files
+        struct mutex files_lock
+        struct hlist_node deferred_work_node
+        int deferred_work
+        bool is_dead
+
+        struct list_head todo
+        struct binder_stats stats
+        struct list_head delivered_death
+        int max_threads
+        int requested_threads
+        int requested_threads_started
+        atomic_t tmp_ref
+        struct binder_priority default_priority
+        struct dentry *debugfs_entry
+        struct binder_alloc alloc
+        struct binder_context *context
+        spinlock_t inner_lock
+        spinlock_t outer_lock
+        struct dentry *binderfs_entry
+    }
+
+    @enduml

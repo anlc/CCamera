@@ -1,0 +1,45 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+namespace frameworks.base.core.java.android.hardware {
+    class Camera
+    Camera -> frameworks.base.core.jni.android_hardware_Camera
+}
+
+namespace frameworks.base.core.jni {
+    class android_hardware_Camera
+    android_hardware_Camera --> frameworks.av.camera.Camera
+}
+
+namespace frameworks.av.camera {
+    class Camera
+    class CameraBase
+    class ICamera
+}
+
+namespace frameworks.av.services.camera.libcameraservice {
+
+    interface CameraService
+
+    namespace api1{
+        interface .CameraClient
+        class CameraClient
+
+        .CameraClient <|-- CameraClient
+        frameworks.av.services.camera.libcameraservice.CameraService <-- CameraClient
+    }
+    namespace device1{
+        interface .CameraHardwareInterface
+        class CameraHardwareInterface
+        .CameraHardwareInterface <|-- CameraHardwareInterface
+    }
+    namespace common{
+        class CameraProviderManager
+    }
+}
+
+namespace hardware.interfaces.camera.device.1.0.default{
+    class CameraDevice
+}
+
+@enduml

@@ -1,0 +1,61 @@
+@startsalt
+{
+{T
++ android
+' framework ===
+++ framework| 应用程序框架
+' framework === av
++++ av| 多媒体框架
+++++ camera| 多媒体的相机相关部分
+++++ camera| 多媒体的相机相关部分
+++++ cmds| 命令源码
+++++ drm| 数据保护
+++++ include| 头文件
+++++ media| 多媒体部分
+++++ radio| 无线射频部分
+++++ services| 服务部分
+++++ soundtrigger| 语音识别架构
+++++ tools| 工具包
+
+' framework === base
++++ base| Android源码的主要核心目录
+++++ cmds| android系统启动时用到的commands
+++++ core| framework的核心框架组件
+
+' framework === ex
++++ ex| ex文件解析器
+++++ camera2| 相机相关
+++++ widget| 小部件
++++ native| native实现
+++++ aidl| aidl层, Android 接口定义语言
+++++ cmds| 命令行
+++++ services| 服务
+
+' framework === rs
++++ rs| Render Script, 可创建3D接口
+
+' hardware ===
+++ hardware|  HAL层, 包括以下几个目录
+
+' hardware === interfaces
++++ interfaces| HAL接口
+++++ bluetooth| 蓝牙
+++++ camera| 相机
+
+' hardware === libhardware
++++ libhardware| 硬件库
+++++ modules| 模块
++++++ audio| 音频
++++++ camera| 相机
+
+' system ===
+++ system| Android系统设施, 包括以下几个目录
++++ core| 系统核心工具盒接口
+++++ adb| adb调试工具
+++++ astboot| 快速启动相关  
+++++ include| 系统接口头文件
+++++ init| init程序源代码 
+++++ libutils| 系统基本库
+}
+}
+@endsalt

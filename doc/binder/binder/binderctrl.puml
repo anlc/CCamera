@@ -1,0 +1,14 @@
+@startuml
+
+(*)--> binder: ioctl(mProcess->mDriverFD, BINDER_WRITE_READ, &bwr)
+--> wait: wait_event_interruptible(binder_user_error_wait, binder_stop_on_user_error < 2)
+--> binder: binder_get_thread(proc)\n查询是否已经添加了当前的线程节点
+--> binder: binder_ioctl_write_read(filp, cmd, arg, thread)
+--> binder: copy_from_user(&bwr, ubuf, sizeof(bwr))
+If "bwr.write_size > 0" then
+--> [Yes] binder_thread_write(proc, thread, bwr.write_buffer, bwr.write_size, &bwr.write_consumed)
+else
+-> "run command"
+Endif
+->(*)
+@enduml

@@ -1,0 +1,35 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+main_cameraserver -> BinderService: CameraService::instantiate()
+BinderService -> BinderService: publish()
+BinderService -> CameraService: SERVICE::getServiceName()
+CameraService --> BinderService: return "media.camera"
+BinderService -> CameraService: new SERVICE()
+CameraService --> BinderService: return "media.camera"
+BinderService -> ServiceManager: addService("media.camera", CameraService...)
+
+sp -> CameraService: onFirstRef()
+CameraService -> BnCameraService: BnCameraService::onFirstRef()
+CameraService -> CameraService: enumerateProviders()
+CameraService -> CameraProviderManager: new CameraProviderManager()
+CameraProviderManager --> CameraService: return mCameraProviderManager
+
+CameraService -> CameraProviderManager: mCameraProviderManager->initialize(this)
+CameraService -> CameraProviderManager: mCameraProviderManager->initialize(this)
+CameraProviderManager -> ServiceInteractionProxy: mServiceProxy->registerForNotifications
+CameraProviderManager -> CameraProviderManager: addProviderLocked(instance) 连接到hal
+CameraProviderManager -> ProviderInfo: new ProviderInfo(newProvider, this)
+ProviderInfo --> ProvCameraProviderManageriderInfo: sp<ProviderInfo> providerInfo
+CameraProviderManager -> ProviderInfo: providerInfo->initialize
+ProviderInfo -> ProviderInfo: addDevice(device, common::V1_0::CameraDeviceStatus::PRESENT, &id)
+ProviderInfo -> ProviderInfo: initializeDeviceInfo
+
+CameraService -> CameraFlashlight: new CameraFlashlight(mCameraProviderManager, this)
+CameraService -> CameraFlashlight: mFlashlight->findFlashUnits()
+
+CameraService -> CameraProviderManager: mCameraProviderManager->getCameraDeviceIds()
+CameraProviderManager --> CameraService: retrun std::vector<std::string> deviceIds
+
+
+@enduml

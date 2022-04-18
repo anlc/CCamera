@@ -1,0 +1,27 @@
+@startuml
+
+system_init -> ProcessState: ProcessState::self()->startThreadPool()
+ProcessState -> ProcessState: spawnPooledThread(true)
+ProcessState -> ProcessState: makeBinderThreadName()
+ProcessState -> PoolThread: new PoolThread(isMain)
+ProcessState -> Thread: run(name.string())
+Thread -> Thread: androidCreateRawThreadEtc(_threadLoop, this, name, priority, stack, &mThread)
+Thread -> Thread: _threadLoop
+Thread -> PoolThread: self->threadLoop()
+PoolThread -> IPCThreadState: IPCThreadState::self()->joinThreadPool(mIsMain);
+loop result != -ECONNREFUSED && result != -EBADF
+    IPCThreadState -> IPCThreadState: getAndExecuteCommand()
+    IPCThreadState -> IPCThreadState: result = talkWithDriver()
+    alt result >= NO_ERROR
+        IPCThreadState -> IPCThreadState: executeCommand(cmd)
+    end
+end
+
+Binder -> android_util_Binder: getNativeBBinderHolder()
+android_util_Binder -> android_util_Binder: getNativeBBinderHolder()
+android_util_Binder -> JavaBBinderHolder: new JavaBBinderHolder()
+android_util_Binder <-- JavaBBinderHolder: JavaBBinderHolder* jbh
+Binder <-- android_util_Binder: final long mObject = jbh
+
+
+@enduml

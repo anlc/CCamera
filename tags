@@ -1,0 +1,258 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+APPLICATION_ID	sample/build/generated/source/buildConfig/debug/com/c/sample/BuildConfig.java	/^  public static final String APPLICATION_ID = "com.c.camera";$/;"	f	class:BuildConfig
+APP_BASE_NAME	gradlew.bat	/^set APP_BASE_NAME=%~n0$/;"	v
+APP_HOME	gradlew.bat	/^for %%i in ("%APP_HOME%") do set APP_HOME=%%~fi$/;"	v
+APP_HOME	gradlew.bat	/^set APP_HOME=%DIRNAME%$/;"	v
+BUILD_TYPE	sample/build/generated/source/buildConfig/debug/com/c/sample/BuildConfig.java	/^  public static final String BUILD_TYPE = "debug";$/;"	f	class:BuildConfig
+BuildConfig	sample/build/generated/source/buildConfig/debug/com/c/sample/BuildConfig.java	/^public final class BuildConfig {$/;"	c
+CLASSPATH	gradlew.bat	/^set CLASSPATH=%APP_HOME%\\gradle\\wrapper\\gradle-wrapper.jar$/;"	v
+Camera	core/src/main/java/com/c/core/Camera.java	/^public interface Camera {$/;"	i
+CameraActivity	sample/src/main/java/com/c/sample/camera/CameraActivity.java	/^public class CameraActivity extends AppCompatActivity {$/;"	c
+CameraApi2	core/src/main/java/com/c/core/CameraApi2.java	/^    public CameraApi2(Context context) {$/;"	m	class:CameraApi2
+CameraApi2	core/src/main/java/com/c/core/CameraApi2.java	/^public class CameraApi2 implements Camera {$/;"	c
+CameraConfig	sample/src/main/java/com/c/sample/camera/CameraConfig.java	/^    public CameraConfig(CameraManagerFacade cameraManagerFacade) {$/;"	m	class:CameraConfig
+CameraConfig	sample/src/main/java/com/c/sample/camera/CameraConfig.java	/^public class CameraConfig {$/;"	c
+CameraDrawer	sample/src/main/java/com/c/sample/GLSurfaceViewActivity.java	/^        public CameraDrawer() {$/;"	m	class:GLSurfaceViewActivity.CameraDrawer
+CameraDrawer	sample/src/main/java/com/c/sample/GLSurfaceViewActivity.java	/^    public static class CameraDrawer {$/;"	c	class:GLSurfaceViewActivity
+CameraFacade	core/src/main/java/com/c/core/CameraFacade.java	/^public class CameraFacade {$/;"	c
+CameraManagerFacade	sample/src/main/java/com/c/sample/camera/CameraManagerFacade.java	/^public interface CameraManagerFacade {$/;"	i
+CameraManagerImpl	sample/src/main/java/com/c/sample/camera/CameraManagerImpl.java	/^    public CameraManagerImpl(CameraManager cameraManager) {$/;"	m	class:CameraManagerImpl
+CameraManagerImpl	sample/src/main/java/com/c/sample/camera/CameraManagerImpl.java	/^public class CameraManagerImpl implements CameraManagerFacade {$/;"	c
+CameraProxy	core/src/main/java/com/c/core/CameraProxy.java	/^    public CameraProxy(Camera camera) {$/;"	m	class:CameraProxy
+CameraProxy	core/src/main/java/com/c/core/CameraProxy.java	/^public class CameraProxy {$/;"	c
+CameraProxy	sample/src/main/java/com/c/sample/camera/CameraProxy.java	/^    public CameraProxy(Context context) {$/;"	m	class:CameraProxy
+CameraProxy	sample/src/main/java/com/c/sample/camera/CameraProxy.java	/^public class CameraProxy {$/;"	c
+DEBUG	sample/build/generated/source/buildConfig/debug/com/c/sample/BuildConfig.java	/^  public static final boolean DEBUG = Boolean.parseBoolean("true");$/;"	f	class:BuildConfig
+DEFAULT_JVM_OPTS	gradlew.bat	/^set DEFAULT_JVM_OPTS="-Xmx64m" "-Xms64m"$/;"	v
+DIRNAME	gradlew.bat	/^if "%DIRNAME%" == "" set DIRNAME=.$/;"	v
+DIRNAME	gradlew.bat	/^set DIRNAME=%~dp0$/;"	v
+DispatchActivity	sample/src/main/java/com/c/sample/DispatchActivity.java	/^public class DispatchActivity extends AppCompatActivity {$/;"	c
+DispatchView	sample/src/main/java/com/c/sample/DispatchView.java	/^    public DispatchView(@NonNull Context context) {$/;"	m	class:DispatchView
+DispatchView	sample/src/main/java/com/c/sample/DispatchView.java	/^    public DispatchView(@NonNull Context context, @Nullable AttributeSet attrs) {$/;"	m	class:DispatchView
+DispatchView	sample/src/main/java/com/c/sample/DispatchView.java	/^    public DispatchView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {$/;"	m	class:DispatchView
+DispatchView	sample/src/main/java/com/c/sample/DispatchView.java	/^public class DispatchView extends androidx.appcompat.widget.AppCompatTextView {$/;"	c
+Dummy	lib/src/main/java/com/c/lib/Dummy.java	/^public class Dummy {$/;"	c
+ExampleInstrumentedTest	app/src/androidTest/java/com/c/camera/ExampleInstrumentedTest.java	/^public class ExampleInstrumentedTest {$/;"	c
+ExampleInstrumentedTest	core/src/androidTest/java/com/c/core/ExampleInstrumentedTest.java	/^public class ExampleInstrumentedTest {$/;"	c
+ExampleInstrumentedTest	lib/src/androidTest/java/com/c/lib/ExampleInstrumentedTest.java	/^public class ExampleInstrumentedTest {$/;"	c
+ExampleInstrumentedTest	sample/src/androidTest/java/com/c/sample/ExampleInstrumentedTest.java	/^public class ExampleInstrumentedTest {$/;"	c
+ExampleUnitTest	app/src/test/java/com/c/camera/ExampleUnitTest.java	/^public class ExampleUnitTest {$/;"	c
+ExampleUnitTest	core/src/test/java/com/c/core/ExampleUnitTest.java	/^public class ExampleUnitTest {$/;"	c
+ExampleUnitTest	lib/src/test/java/com/c/lib/ExampleUnitTest.java	/^public class ExampleUnitTest {$/;"	c
+ExampleUnitTest	sample/src/test/java/com/c/sample/ExampleUnitTest.java	/^public class ExampleUnitTest {$/;"	c
+FACING_BACK	sample/src/main/java/com/c/sample/camera/CameraManagerFacade.java	/^        FACING_BACK,$/;"	e	enum:CameraManagerFacade.Facing	file:
+FACING_EXTERNAL	sample/src/main/java/com/c/sample/camera/CameraManagerFacade.java	/^        FACING_EXTERNAL,$/;"	e	enum:CameraManagerFacade.Facing	file:
+FACING_FRONT	sample/src/main/java/com/c/sample/camera/CameraManagerFacade.java	/^        FACING_FRONT,$/;"	e	enum:CameraManagerFacade.Facing	file:
+FACING_UNKNOWN	sample/src/main/java/com/c/sample/camera/CameraManagerFacade.java	/^        FACING_UNKNOWN \/\/ returned if the Camera API returned an error or an unknown type$/;"	e	enum:CameraManagerFacade.Facing	file:
+FRAGMENT_SHADER	sample/src/main/java/com/c/sample/GLSurfaceViewActivity.java	/^        private final String FRAGMENT_SHADER = "" +$/;"	f	class:GLSurfaceViewActivity.CameraDrawer	file:
+Facing	sample/src/main/java/com/c/sample/camera/CameraManagerFacade.java	/^    enum Facing {$/;"	g	interface:CameraManagerFacade
+GLSurfaceViewActivity	sample/src/main/java/com/c/sample/GLSurfaceViewActivity.java	/^public class GLSurfaceViewActivity extends AppCompatActivity {$/;"	c
+ImageSaver	sample/src/main/java/com/c/sample/saver/ImageSaver.java	/^public class ImageSaver implements MediaSaver{$/;"	c
+JAVA_EXE	gradlew.bat	/^set JAVA_EXE=%JAVA_HOME%\/bin\/java.exe$/;"	v
+JAVA_EXE	gradlew.bat	/^set JAVA_EXE=java.exe$/;"	v
+JAVA_HOME	gradlew.bat	/^set JAVA_HOME=%JAVA_HOME:"=%$/;"	v
+MainActivity	app/src/main/java/com/c/camera/MainActivity.java	/^public class MainActivity extends AppCompatActivity {$/;"	c
+MainActivity	sample/src/main/java/com/c/sample/MainActivity.java	/^public class MainActivity extends AppCompatActivity {$/;"	c
+MediaSaver	sample/src/main/java/com/c/sample/saver/MediaSaver.java	/^public interface MediaSaver {$/;"	i
+NoPermissionException	core/src/main/java/com/c/core/NoPermissionException.java	/^public class NoPermissionException extends RuntimeException{$/;"	c
+ParentLayout	sample/src/main/java/com/c/sample/ParentLayout.java	/^    public ParentLayout(Context context) {$/;"	m	class:ParentLayout
+ParentLayout	sample/src/main/java/com/c/sample/ParentLayout.java	/^    public ParentLayout(Context context, @Nullable AttributeSet attrs) {$/;"	m	class:ParentLayout
+ParentLayout	sample/src/main/java/com/c/sample/ParentLayout.java	/^    public ParentLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {$/;"	m	class:ParentLayout
+ParentLayout	sample/src/main/java/com/c/sample/ParentLayout.java	/^public class ParentLayout extends LinearLayout {$/;"	c
+SLIDE_XY_THRESHOLD	sample/src/main/java/com/c/sample/ParentLayout.java	/^    private final static int SLIDE_XY_THRESHOLD = 3;$/;"	f	class:ParentLayout	file:
+ScrollActivity	sample/src/main/java/com/c/sample/ScrollActivity.java	/^public class ScrollActivity extends AppCompatActivity {$/;"	c
+SurfaceViewActivity	sample/src/main/java/com/c/sample/SurfaceViewActivity.java	/^public class SurfaceViewActivity extends AppCompatActivity {$/;"	c
+TAG	sample/src/main/java/com/c/sample/DispatchActivity.java	/^    private static final String TAG = "DispatchActivity";$/;"	f	class:DispatchActivity	file:
+TAG	sample/src/main/java/com/c/sample/DispatchView.java	/^    private static final String TAG = "DispatchView";$/;"	f	class:DispatchView	file:
+TAG	sample/src/main/java/com/c/sample/GLSurfaceViewActivity.java	/^    private static final String TAG = "GlSurfaceViewActivity";$/;"	f	class:GLSurfaceViewActivity	file:
+TAG	sample/src/main/java/com/c/sample/ParentLayout.java	/^    private static final String TAG = "ParentLayout";$/;"	f	class:ParentLayout	file:
+TAG	sample/src/main/java/com/c/sample/SurfaceViewActivity.java	/^    private static final String TAG = "SurfaceViewActivity";$/;"	f	class:SurfaceViewActivity	file:
+TAG	sample/src/main/java/com/c/sample/TextureViewActivity.java	/^    private static final String TAG = "TextureViewActivity";$/;"	f	class:TextureViewActivity	file:
+TAG	sample/src/main/java/com/c/sample/camera/CameraProxy.java	/^    private static final String TAG = "CameraProxy";$/;"	f	class:CameraProxy	file:
+TAG	sample/src/main/java/com/c/sample/saver/ImageSaver.java	/^    private static final String TAG = "ImageSaver";$/;"	f	class:ImageSaver	file:
+TEXTURE_BACK	sample/src/main/java/com/c/sample/GLSurfaceViewActivity.java	/^        private static final float TEXTURE_BACK[] = {$/;"	f	class:GLSurfaceViewActivity.CameraDrawer	file:
+TEXTURE_FRONT	sample/src/main/java/com/c/sample/GLSurfaceViewActivity.java	/^        private static final float TEXTURE_FRONT[] = {$/;"	f	class:GLSurfaceViewActivity.CameraDrawer	file:
+TestActivity	sample/src/main/java/com/c/sample/TestActivity.java	/^public class TestActivity extends AppCompatActivity {$/;"	c
+TextureViewActivity	sample/src/main/java/com/c/sample/TextureViewActivity.java	/^public class TextureViewActivity extends AppCompatActivity {$/;"	c
+VERSION_CODE	sample/build/generated/source/buildConfig/debug/com/c/sample/BuildConfig.java	/^  public static final int VERSION_CODE = 1;$/;"	f	class:BuildConfig
+VERSION_NAME	sample/build/generated/source/buildConfig/debug/com/c/sample/BuildConfig.java	/^  public static final String VERSION_NAME = "1.0";$/;"	f	class:BuildConfig
+VERTEXES	sample/src/main/java/com/c/sample/GLSurfaceViewActivity.java	/^        private static final float VERTEXES[] = {$/;"	f	class:GLSurfaceViewActivity.CameraDrawer	file:
+VERTEX_ORDER	sample/src/main/java/com/c/sample/GLSurfaceViewActivity.java	/^        private static final byte VERTEX_ORDER[] = {0, 1, 2, 3}; \/\/ order to draw vertices$/;"	f	class:GLSurfaceViewActivity.CameraDrawer	file:
+VERTEX_SHADER	sample/src/main/java/com/c/sample/GLSurfaceViewActivity.java	/^        private final String VERTEX_SHADER = "" +$/;"	f	class:GLSurfaceViewActivity.CameraDrawer	file:
+VERTEX_SIZE	sample/src/main/java/com/c/sample/GLSurfaceViewActivity.java	/^        private final int VERTEX_SIZE = 2;$/;"	f	class:GLSurfaceViewActivity.CameraDrawer	file:
+VERTEX_STRIDE	sample/src/main/java/com/c/sample/GLSurfaceViewActivity.java	/^        private final int VERTEX_STRIDE = VERTEX_SIZE * 4;$/;"	f	class:GLSurfaceViewActivity.CameraDrawer	file:
+WatermarkSaver	sample/src/main/java/com/c/sample/saver/WatermarkSaver.java	/^    public WatermarkSaver(MediaSaver saver) {$/;"	m	class:WatermarkSaver
+WatermarkSaver	sample/src/main/java/com/c/sample/saver/WatermarkSaver.java	/^public class WatermarkSaver implements MediaSaver {$/;"	c
+addBitmap	sample/src/main/java/com/c/sample/TestActivity.java	/^    private Bitmap addBitmap(Bitmap srcBitmap, Bitmap bitmap, int left, int top) {$/;"	m	class:TestActivity	file:
+addClass	sample/build/reports/tests/testDebugUnitTest/js/report.js	/^    function addClass(element, classValue) {$/;"	f
+addition_isCorrect	app/src/test/java/com/c/camera/ExampleUnitTest.java	/^    public void addition_isCorrect() {$/;"	m	class:ExampleUnitTest
+addition_isCorrect	core/src/test/java/com/c/core/ExampleUnitTest.java	/^    public void addition_isCorrect() {$/;"	m	class:ExampleUnitTest
+addition_isCorrect	lib/src/test/java/com/c/lib/ExampleUnitTest.java	/^    public void addition_isCorrect() {$/;"	m	class:ExampleUnitTest
+addition_isCorrect	sample/src/test/java/com/c/sample/ExampleUnitTest.java	/^    public void addition_isCorrect() {$/;"	m	class:ExampleUnitTest
+capture	sample/src/main/java/com/c/sample/camera/CameraProxy.java	/^    public void capture() throws CameraAccessException, IllegalStateException {$/;"	m	class:CameraProxy
+changeElementClass	sample/build/reports/tests/testDebugUnitTest/js/report.js	/^    function changeElementClass(element, classValue) {$/;"	f
+close	core/src/main/java/com/c/core/Camera.java	/^    void close();$/;"	m	interface:Camera
+close	core/src/main/java/com/c/core/CameraApi2.java	/^    public void close() {$/;"	m	class:CameraApi2
+close	core/src/main/java/com/c/core/CameraFacade.java	/^    public void close() {$/;"	m	class:CameraFacade
+closeCamera	sample/src/main/java/com/c/sample/camera/CameraProxy.java	/^    public void closeCamera() {$/;"	m	class:CameraProxy
+com.c.camera	app/src/androidTest/java/com/c/camera/ExampleInstrumentedTest.java	/^package com.c.camera;$/;"	p
+com.c.camera	app/src/main/java/com/c/camera/MainActivity.java	/^package com.c.camera;$/;"	p
+com.c.camera	app/src/test/java/com/c/camera/ExampleUnitTest.java	/^package com.c.camera;$/;"	p
+com.c.core	core/src/androidTest/java/com/c/core/ExampleInstrumentedTest.java	/^package com.c.core;$/;"	p
+com.c.core	core/src/main/java/com/c/core/Camera.java	/^package com.c.core;$/;"	p
+com.c.core	core/src/main/java/com/c/core/CameraApi2.java	/^package com.c.core;$/;"	p
+com.c.core	core/src/main/java/com/c/core/CameraFacade.java	/^package com.c.core;$/;"	p
+com.c.core	core/src/main/java/com/c/core/CameraProxy.java	/^package com.c.core;$/;"	p
+com.c.core	core/src/main/java/com/c/core/NoPermissionException.java	/^package com.c.core;$/;"	p
+com.c.core	core/src/test/java/com/c/core/ExampleUnitTest.java	/^package com.c.core;$/;"	p
+com.c.lib	lib/src/androidTest/java/com/c/lib/ExampleInstrumentedTest.java	/^package com.c.lib;$/;"	p
+com.c.lib	lib/src/main/java/com/c/lib/Dummy.java	/^package com.c.lib;$/;"	p
+com.c.lib	lib/src/test/java/com/c/lib/ExampleUnitTest.java	/^package com.c.lib;$/;"	p
+com.c.sample	sample/build/generated/source/buildConfig/debug/com/c/sample/BuildConfig.java	/^package com.c.sample;$/;"	p
+com.c.sample	sample/src/androidTest/java/com/c/sample/ExampleInstrumentedTest.java	/^package com.c.sample;$/;"	p
+com.c.sample	sample/src/main/java/com/c/sample/DispatchActivity.java	/^package com.c.sample;$/;"	p
+com.c.sample	sample/src/main/java/com/c/sample/DispatchView.java	/^package com.c.sample;$/;"	p
+com.c.sample	sample/src/main/java/com/c/sample/GLSurfaceViewActivity.java	/^package com.c.sample;$/;"	p
+com.c.sample	sample/src/main/java/com/c/sample/MainActivity.java	/^package com.c.sample;$/;"	p
+com.c.sample	sample/src/main/java/com/c/sample/ParentLayout.java	/^package com.c.sample;$/;"	p
+com.c.sample	sample/src/main/java/com/c/sample/ScrollActivity.java	/^package com.c.sample;$/;"	p
+com.c.sample	sample/src/main/java/com/c/sample/SurfaceViewActivity.java	/^package com.c.sample;$/;"	p
+com.c.sample	sample/src/main/java/com/c/sample/TestActivity.java	/^package com.c.sample;$/;"	p
+com.c.sample	sample/src/main/java/com/c/sample/TextureViewActivity.java	/^package com.c.sample;$/;"	p
+com.c.sample	sample/src/test/java/com/c/sample/ExampleUnitTest.java	/^package com.c.sample;$/;"	p
+com.c.sample.camera	sample/src/main/java/com/c/sample/camera/CameraActivity.java	/^package com.c.sample.camera;$/;"	p
+com.c.sample.camera	sample/src/main/java/com/c/sample/camera/CameraConfig.java	/^package com.c.sample.camera;$/;"	p
+com.c.sample.camera	sample/src/main/java/com/c/sample/camera/CameraManagerFacade.java	/^package com.c.sample.camera;$/;"	p
+com.c.sample.camera	sample/src/main/java/com/c/sample/camera/CameraManagerImpl.java	/^package com.c.sample.camera;$/;"	p
+com.c.sample.camera	sample/src/main/java/com/c/sample/camera/CameraProxy.java	/^package com.c.sample.camera;$/;"	p
+com.c.sample.saver	sample/src/main/java/com/c/sample/saver/ImageSaver.java	/^package com.c.sample.saver;$/;"	p
+com.c.sample.saver	sample/src/main/java/com/c/sample/saver/MediaSaver.java	/^package com.c.sample.saver;$/;"	p
+com.c.sample.saver	sample/src/main/java/com/c/sample/saver/WatermarkSaver.java	/^package com.c.sample.saver;$/;"	p
+createProgram	sample/src/main/java/com/c/sample/GLSurfaceViewActivity.java	/^    public static int createProgram(String vertexSource, String fragmentSource) {$/;"	m	class:GLSurfaceViewActivity
+deselectAll	sample/build/reports/tests/testDebugUnitTest/js/report.js	/^    function deselectAll() {$/;"	f
+die	gradlew	/^die () {$/;"	f
+dispatchKeyEvent	sample/src/main/java/com/c/sample/DispatchActivity.java	/^    public boolean dispatchKeyEvent(KeyEvent event) {$/;"	m	class:DispatchActivity
+dispatchKeyEvent	sample/src/main/java/com/c/sample/DispatchView.java	/^    public boolean dispatchKeyEvent(KeyEvent event) {$/;"	m	class:DispatchView
+draw	sample/src/main/java/com/c/sample/GLSurfaceViewActivity.java	/^        public void draw(int texture, boolean isFrontCamera) {$/;"	m	class:GLSurfaceViewActivity.CameraDrawer
+end	gradlew.bat	/^:end$/;"	l
+execute	gradlew.bat	/^:execute$/;"	l
+fail	gradlew.bat	/^:fail$/;"	l
+findChildElements	sample/build/reports/tests/testDebugUnitTest/js/report.js	/^    function findChildElements(container, name, targetClass) {$/;"	f
+findCodeBlocks	sample/build/reports/tests/testDebugUnitTest/js/report.js	/^    function findCodeBlocks() {$/;"	f
+findHeaders	sample/build/reports/tests/testDebugUnitTest/js/report.js	/^    function findHeaders(container) {$/;"	f
+findJavaFromJavaHome	gradlew.bat	/^:findJavaFromJavaHome$/;"	l
+findTabs	sample/build/reports/tests/testDebugUnitTest/js/report.js	/^    function findTabs(container) {$/;"	f
+findTitles	sample/build/reports/tests/testDebugUnitTest/js/report.js	/^    function findTitles(tabs) {$/;"	f
+forAllCodeBlocks	sample/build/reports/tests/testDebugUnitTest/js/report.js	/^    function forAllCodeBlocks(operation) {$/;"	f
+getAddBitmap	sample/src/main/java/com/c/sample/TestActivity.java	/^    public Bitmap getAddBitmap(Bitmap watermark, int width, int height) {$/;"	m	class:TestActivity
+getCheckBox	sample/build/reports/tests/testDebugUnitTest/js/report.js	/^    function getCheckBox() {$/;"	f
+getClassAttribute	sample/build/reports/tests/testDebugUnitTest/js/report.js	/^    function getClassAttribute(element) {$/;"	f
+getDateStr	sample/src/main/java/com/c/sample/TestActivity.java	/^    public static String getDateStr(ContentResolver mResolver) {$/;"	m	class:TestActivity
+getExternalOESTextureID	sample/src/main/java/com/c/sample/GLSurfaceViewActivity.java	/^    public static int getExternalOESTextureID() {$/;"	m	class:GLSurfaceViewActivity
+getFacing	sample/src/main/java/com/c/sample/camera/CameraManagerFacade.java	/^    Facing getFacing(String cameraId) throws CameraAccessException;$/;"	m	interface:CameraManagerFacade
+getFacing	sample/src/main/java/com/c/sample/camera/CameraManagerImpl.java	/^    public Facing getFacing(String cameraId) throws CameraAccessException {$/;"	m	class:CameraManagerImpl
+getFacingList	sample/src/main/java/com/c/sample/camera/CameraConfig.java	/^    public List<CameraManagerFacade.Facing> getFacingList() {$/;"	m	class:CameraConfig
+getLabelForCheckBox	sample/build/reports/tests/testDebugUnitTest/js/report.js	/^    function getLabelForCheckBox() {$/;"	f
+getTimestampBitmap	sample/src/main/java/com/c/sample/TestActivity.java	/^    public Bitmap getTimestampBitmap() {$/;"	m	class:TestActivity
+getWatermarkBitmap	sample/src/main/java/com/c/sample/TestActivity.java	/^    public Bitmap getWatermarkBitmap() {$/;"	m	class:TestActivity
+getWatermarkTextPaint	sample/src/main/java/com/c/sample/TestActivity.java	/^    public static Paint getWatermarkTextPaint(int textSize) {$/;"	m	class:TestActivity
+initControls	sample/build/reports/tests/testDebugUnitTest/js/report.js	/^    function initControls() {$/;"	f
+initFacing	sample/src/main/java/com/c/sample/camera/CameraConfig.java	/^    public void initFacing(String[] cameraIdList) throws CameraAccessException {$/;"	m	class:CameraConfig
+initPreviewRequest	sample/src/main/java/com/c/sample/GLSurfaceViewActivity.java	/^    private void initPreviewRequest(CameraDevice camera, Surface surface) throws CameraAccessException {$/;"	m	class:GLSurfaceViewActivity	file:
+initPreviewRequest	sample/src/main/java/com/c/sample/SurfaceViewActivity.java	/^    private void initPreviewRequest(CameraDevice camera, SurfaceHolder holder) throws CameraAccessException {$/;"	m	class:SurfaceViewActivity	file:
+initPreviewRequest	sample/src/main/java/com/c/sample/TextureViewActivity.java	/^    private void initPreviewRequest(CameraDevice camera, Surface surface) throws CameraAccessException {$/;"	m	class:TextureViewActivity	file:
+initPreviewRequest	sample/src/main/java/com/c/sample/camera/CameraProxy.java	/^    private void initPreviewRequest(CameraDevice camera, Surface surface) throws CameraAccessException {$/;"	m	class:CameraProxy	file:
+initTabs	sample/build/reports/tests/testDebugUnitTest/js/report.js	/^    function initTabs() {$/;"	f
+insertToDB	sample/src/main/java/com/c/sample/saver/ImageSaver.java	/^    public static void insertToDB(Context context, String picturePath) {$/;"	m	class:ImageSaver
+loadShader	sample/src/main/java/com/c/sample/GLSurfaceViewActivity.java	/^    public static int loadShader(int type, String source) {$/;"	m	class:GLSurfaceViewActivity
+mBackTextureBuffer	sample/src/main/java/com/c/sample/GLSurfaceViewActivity.java	/^        private FloatBuffer mBackTextureBuffer;$/;"	f	class:GLSurfaceViewActivity.CameraDrawer	file:
+mCamera	core/src/main/java/com/c/core/CameraProxy.java	/^    private Camera mCamera;$/;"	f	class:CameraProxy	file:
+mCameraCaptureSession	sample/src/main/java/com/c/sample/camera/CameraProxy.java	/^    private CameraCaptureSession mCameraCaptureSession;$/;"	f	class:CameraProxy	file:
+mCameraConfig	sample/src/main/java/com/c/sample/camera/CameraProxy.java	/^    private CameraConfig mCameraConfig;$/;"	f	class:CameraProxy	file:
+mCameraDevice	sample/src/main/java/com/c/sample/camera/CameraProxy.java	/^    private CameraDevice mCameraDevice;$/;"	f	class:CameraProxy	file:
+mCameraId	sample/src/main/java/com/c/sample/camera/CameraActivity.java	/^    private String mCameraId;$/;"	f	class:CameraActivity	file:
+mCameraManager	core/src/main/java/com/c/core/CameraApi2.java	/^    private final CameraManager mCameraManager;$/;"	f	class:CameraApi2	file:
+mCameraManager	sample/src/main/java/com/c/sample/GLSurfaceViewActivity.java	/^    private CameraManager mCameraManager;$/;"	f	class:GLSurfaceViewActivity	file:
+mCameraManager	sample/src/main/java/com/c/sample/SurfaceViewActivity.java	/^    private CameraManager mCameraManager;$/;"	f	class:SurfaceViewActivity	file:
+mCameraManager	sample/src/main/java/com/c/sample/TextureViewActivity.java	/^    private CameraManager mCameraManager;$/;"	f	class:TextureViewActivity	file:
+mCameraManager	sample/src/main/java/com/c/sample/camera/CameraManagerImpl.java	/^    private CameraManager mCameraManager;$/;"	f	class:CameraManagerImpl	file:
+mCameraManager	sample/src/main/java/com/c/sample/camera/CameraProxy.java	/^    private CameraManager mCameraManager;$/;"	f	class:CameraProxy	file:
+mCameraManagerFacade	sample/src/main/java/com/c/sample/camera/CameraConfig.java	/^    private final CameraManagerFacade mCameraManagerFacade;$/;"	f	class:CameraConfig	file:
+mCameraProxy	sample/src/main/java/com/c/sample/camera/CameraActivity.java	/^    private CameraProxy mCameraProxy;$/;"	f	class:CameraActivity	file:
+mContext	core/src/main/java/com/c/core/CameraApi2.java	/^    private Context mContext;$/;"	f	class:CameraApi2	file:
+mDrawListBuffer	sample/src/main/java/com/c/sample/GLSurfaceViewActivity.java	/^        private ByteBuffer mDrawListBuffer;$/;"	f	class:GLSurfaceViewActivity.CameraDrawer	file:
+mFacingList	sample/src/main/java/com/c/sample/camera/CameraConfig.java	/^    private List<CameraManagerFacade.Facing> mFacingList;$/;"	f	class:CameraConfig	file:
+mFrontTextureBuffer	sample/src/main/java/com/c/sample/GLSurfaceViewActivity.java	/^        private FloatBuffer mFrontTextureBuffer;$/;"	f	class:GLSurfaceViewActivity.CameraDrawer	file:
+mHandler	core/src/main/java/com/c/core/CameraApi2.java	/^    private Handler mHandler;$/;"	f	class:CameraApi2	file:
+mHandler	sample/src/main/java/com/c/sample/GLSurfaceViewActivity.java	/^    private Handler mHandler;$/;"	f	class:GLSurfaceViewActivity	file:
+mHandler	sample/src/main/java/com/c/sample/SurfaceViewActivity.java	/^    private Handler mHandler;$/;"	f	class:SurfaceViewActivity	file:
+mHandler	sample/src/main/java/com/c/sample/TextureViewActivity.java	/^    private Handler mHandler;$/;"	f	class:TextureViewActivity	file:
+mHandler	sample/src/main/java/com/c/sample/camera/CameraProxy.java	/^    private Handler mHandler;$/;"	f	class:CameraProxy	file:
+mImageReader	sample/src/main/java/com/c/sample/camera/CameraProxy.java	/^    private ImageReader mImageReader;$/;"	f	class:CameraProxy	file:
+mLastX	sample/src/main/java/com/c/sample/ParentLayout.java	/^    private int mLastX;$/;"	f	class:ParentLayout	file:
+mLastXIntercept	sample/src/main/java/com/c/sample/ParentLayout.java	/^    private int mLastXIntercept;$/;"	f	class:ParentLayout	file:
+mLastY	sample/src/main/java/com/c/sample/ParentLayout.java	/^    private int mLastY;$/;"	f	class:ParentLayout	file:
+mLastYIntercept	sample/src/main/java/com/c/sample/ParentLayout.java	/^    private int mLastYIntercept;$/;"	f	class:ParentLayout	file:
+mPicSavePath	sample/src/main/java/com/c/sample/camera/CameraActivity.java	/^    private String mPicSavePath;$/;"	f	class:CameraActivity	file:
+mPositionHandle	sample/src/main/java/com/c/sample/GLSurfaceViewActivity.java	/^        private int mPositionHandle;$/;"	f	class:GLSurfaceViewActivity.CameraDrawer	file:
+mProgram	sample/src/main/java/com/c/sample/GLSurfaceViewActivity.java	/^        private int mProgram;$/;"	f	class:GLSurfaceViewActivity.CameraDrawer	file:
+mSaver	sample/src/main/java/com/c/sample/camera/CameraActivity.java	/^    private MediaSaver mSaver;$/;"	f	class:CameraActivity	file:
+mSaver	sample/src/main/java/com/c/sample/saver/WatermarkSaver.java	/^    private MediaSaver mSaver;$/;"	f	class:WatermarkSaver	file:
+mTextureHandle	sample/src/main/java/com/c/sample/GLSurfaceViewActivity.java	/^        private int mTextureHandle;$/;"	f	class:GLSurfaceViewActivity.CameraDrawer	file:
+mVertexBuffer	sample/src/main/java/com/c/sample/GLSurfaceViewActivity.java	/^        private FloatBuffer mVertexBuffer;$/;"	f	class:GLSurfaceViewActivity.CameraDrawer	file:
+mainEnd	gradlew.bat	/^:mainEnd$/;"	l
+omega	gradlew.bat	/^:omega$/;"	l
+onCreate	app/src/main/java/com/c/camera/MainActivity.java	/^    protected void onCreate(Bundle savedInstanceState) {$/;"	m	class:MainActivity
+onCreate	sample/src/main/java/com/c/sample/DispatchActivity.java	/^    protected void onCreate(@Nullable Bundle savedInstanceState) {$/;"	m	class:DispatchActivity
+onCreate	sample/src/main/java/com/c/sample/GLSurfaceViewActivity.java	/^    protected void onCreate(@Nullable Bundle savedInstanceState) {$/;"	m	class:GLSurfaceViewActivity
+onCreate	sample/src/main/java/com/c/sample/MainActivity.java	/^    protected void onCreate(Bundle savedInstanceState) {$/;"	m	class:MainActivity
+onCreate	sample/src/main/java/com/c/sample/ScrollActivity.java	/^    protected void onCreate(@Nullable Bundle savedInstanceState) {$/;"	m	class:ScrollActivity
+onCreate	sample/src/main/java/com/c/sample/SurfaceViewActivity.java	/^    protected void onCreate(@Nullable Bundle savedInstanceState) {$/;"	m	class:SurfaceViewActivity
+onCreate	sample/src/main/java/com/c/sample/TestActivity.java	/^    protected void onCreate(@Nullable Bundle savedInstanceState) {$/;"	m	class:TestActivity
+onCreate	sample/src/main/java/com/c/sample/TextureViewActivity.java	/^    protected void onCreate(@Nullable Bundle savedInstanceState) {$/;"	m	class:TextureViewActivity
+onCreate	sample/src/main/java/com/c/sample/camera/CameraActivity.java	/^    protected void onCreate(@Nullable Bundle savedInstanceState) {$/;"	m	class:CameraActivity
+onInterceptTouchEvent	sample/src/main/java/com/c/sample/ParentLayout.java	/^    public boolean onInterceptTouchEvent(MotionEvent ev) {$/;"	m	class:ParentLayout
+onKeyDown	sample/src/main/java/com/c/sample/DispatchActivity.java	/^    public boolean onKeyDown(int keyCode, KeyEvent event) {$/;"	m	class:DispatchActivity
+onKeyDown	sample/src/main/java/com/c/sample/DispatchView.java	/^    public boolean onKeyDown(int keyCode, KeyEvent event) {$/;"	m	class:DispatchView
+onKeyUp	sample/src/main/java/com/c/sample/DispatchActivity.java	/^    public boolean onKeyUp(int keyCode, KeyEvent event) {$/;"	m	class:DispatchActivity
+onKeyUp	sample/src/main/java/com/c/sample/DispatchView.java	/^    public boolean onKeyUp(int keyCode, KeyEvent event) {$/;"	m	class:DispatchView
+open	core/src/main/java/com/c/core/Camera.java	/^    void open(String id) throws CameraAccessException, NoPermissionException;$/;"	m	interface:Camera
+open	core/src/main/java/com/c/core/CameraApi2.java	/^    public void open(String id) throws CameraAccessException, NoPermissionException {$/;"	m	class:CameraApi2
+open	core/src/main/java/com/c/core/CameraFacade.java	/^    public void open(int cameraId) {$/;"	m	class:CameraFacade
+open	core/src/main/java/com/c/core/CameraProxy.java	/^    public void open(String id) throws CameraAccessException {$/;"	m	class:CameraProxy
+openCamera	sample/src/main/java/com/c/sample/GLSurfaceViewActivity.java	/^    private void openCamera(Surface surface) throws CameraAccessException {$/;"	m	class:GLSurfaceViewActivity	file:
+openCamera	sample/src/main/java/com/c/sample/SurfaceViewActivity.java	/^    private void openCamera(SurfaceHolder holder) throws CameraAccessException {$/;"	m	class:SurfaceViewActivity	file:
+openCamera	sample/src/main/java/com/c/sample/TextureViewActivity.java	/^    private void openCamera(Surface surface) throws CameraAccessException {$/;"	m	class:TextureViewActivity	file:
+openCamera	sample/src/main/java/com/c/sample/camera/CameraProxy.java	/^    public void openCamera(String cameraId, Surface surface) throws CameraAccessException {$/;"	m	class:CameraProxy
+removeClass	sample/build/reports/tests/testDebugUnitTest/js/report.js	/^    function removeClass(element, classValue) {$/;"	f
+resizeBitmap	sample/src/main/java/com/c/sample/TestActivity.java	/^    private Bitmap resizeBitmap(Bitmap srcBitmap, Bitmap bitmap, float scale, float degrees) {$/;"	m	class:TestActivity	file:
+save	gradlew	/^save () {$/;"	f
+saveImage	sample/src/main/java/com/c/sample/camera/CameraActivity.java	/^    private void saveImage(Image image) {$/;"	m	class:CameraActivity	file:
+saveImage	sample/src/main/java/com/c/sample/saver/ImageSaver.java	/^    public void saveImage(Context context, byte[] jpeg, String path, String name) throws IOException {$/;"	m	class:ImageSaver
+saveImage	sample/src/main/java/com/c/sample/saver/MediaSaver.java	/^    void saveImage(Context context, byte[] jpeg, String path, String name) throws IOException;$/;"	m	interface:MediaSaver
+saveImage	sample/src/main/java/com/c/sample/saver/WatermarkSaver.java	/^    public void saveImage(Context context, byte[] jpeg, String path, String name) throws IOException {$/;"	m	class:WatermarkSaver
+select	sample/build/reports/tests/testDebugUnitTest/js/report.js	/^    function select(i) {$/;"	c
+setOnImageAvailableListener	sample/src/main/java/com/c/sample/camera/CameraProxy.java	/^    public void setOnImageAvailableListener(ImageReader.OnImageAvailableListener listener) {$/;"	m	class:CameraProxy
+setResizeView	sample/src/main/java/com/c/sample/TestActivity.java	/^    private void setResizeView() {$/;"	m	class:TestActivity	file:
+setRotateView	sample/src/main/java/com/c/sample/TestActivity.java	/^    private void setRotateView() {$/;"	m	class:TestActivity	file:
+setScaleView	sample/src/main/java/com/c/sample/TestActivity.java	/^    private void setScaleView() {$/;"	m	class:TestActivity	file:
+startActivity	sample/src/main/java/com/c/sample/MainActivity.java	/^    private void startActivity(Class<?> cls) {$/;"	m	class:MainActivity	file:
+switchTab	sample/build/reports/tests/testDebugUnitTest/js/report.js	/^    function switchTab() {$/;"	f
+takePicture	core/src/main/java/com/c/core/Camera.java	/^    void takePicture();$/;"	m	interface:Camera
+takePicture	core/src/main/java/com/c/core/CameraApi2.java	/^    public void takePicture() {$/;"	m	class:CameraApi2
+toast	sample/src/main/java/com/c/sample/GLSurfaceViewActivity.java	/^    private void toast(String msg) {$/;"	m	class:GLSurfaceViewActivity	file:
+toast	sample/src/main/java/com/c/sample/SurfaceViewActivity.java	/^    private void toast(String msg) {$/;"	m	class:SurfaceViewActivity	file:
+toast	sample/src/main/java/com/c/sample/TextureViewActivity.java	/^    private void toast(String msg) {$/;"	m	class:TextureViewActivity	file:
+toast	sample/src/main/java/com/c/sample/camera/CameraActivity.java	/^    private void toast(String msg) {$/;"	m	class:CameraActivity	file:
+toggleLineWrapping	sample/build/reports/tests/testDebugUnitTest/js/report.js	/^    function toggleLineWrapping() {$/;"	f
+useAppContext	app/src/androidTest/java/com/c/camera/ExampleInstrumentedTest.java	/^    public void useAppContext() {$/;"	m	class:ExampleInstrumentedTest
+useAppContext	core/src/androidTest/java/com/c/core/ExampleInstrumentedTest.java	/^    public void useAppContext() {$/;"	m	class:ExampleInstrumentedTest
+useAppContext	lib/src/androidTest/java/com/c/lib/ExampleInstrumentedTest.java	/^    public void useAppContext() {$/;"	m	class:ExampleInstrumentedTest
+useAppContext	sample/src/androidTest/java/com/c/sample/ExampleInstrumentedTest.java	/^    public void useAppContext() {$/;"	m	class:ExampleInstrumentedTest
+warn	gradlew	/^warn () {$/;"	f
+window.onload	sample/build/reports/tests/testDebugUnitTest/js/report.js	/^    }$/;"	f

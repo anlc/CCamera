@@ -1,0 +1,62 @@
+@startuml
+
+namespace system.core.libutils.include.utils{
+    interface .StrongPointer{
+        sp(T* other);
+    }
+
+    interface LightRefBase
+
+    .StrongPointer -> LightRefBase
+
+    interface .RefBase{
+        weakref_impl* const mRefs;
+
+        weakref_type* createWeak(const void* id) const
+        virtual void  onFirstRef()
+        inline void incStrong(void* id) const
+        inline void decStrong(void* id) const
+    }
+
+    class RefBase
+
+    interface wp{
+        wp(T* other);
+        wp(const wp<T>& other);
+        explicit wp(const sp<T>& other);
+        template<typename U> wp(U* other);
+        template<typename U> wp(const sp<U>& other);
+        template<typename U> wp(const wp<U>& other);
+    }
+
+    class weakref_type{
+        void incWeak(const void* id)
+        void decWeak(const void* id)
+    }
+
+    class weakref_impl
+
+    .RefBase +-- weakref_type
+    .RefBase +-- wp
+
+    weakref_type <|-- weakref_impl
+    RefBase +-- weakref_impl
+    .RefBase o-- weakref_impl
+    .RefBase <|.. RefBase
+
+    note right of wp::incStrong
+    增加强引用计数
+    end note
+    note right of wp::decStrong
+    减少强引用计数
+    end note
+
+    note right of .RefBase::incStrong
+    增加强引用计数
+    end note
+    note right of .RefBase::decStrong
+    减少强引用计数
+    end note
+}
+
+@enduml

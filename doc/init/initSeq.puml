@@ -1,0 +1,16 @@
+@startuml
+
+main -> first_stage_init: FirstStageMain(argc, argv) 初始化/挂载目录
+main -> logging: InitLogging(argv, &android::base::KernelLogger)
+main -> selinux: SetupSelinux(argv)
+main -> init: SecondStageMain(argc, argv)
+init -> property_service: PropertyInit()
+init -> action_manager: ActionManager::GetInstance()
+action_manager -> init: return ActionManager instance
+init -> ServiceList: ServiceList::GetInstance()
+action_manager -> init: ServiceList instance
+init -> init: LoadBootScripts()
+init -> init: CreateParser(action_manager, service_list)
+init -> init: CreateParser(action_manager, service_list)
+
+@enduml

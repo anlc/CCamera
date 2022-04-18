@@ -1,0 +1,23 @@
+@startuml
+
+activity -> Parcel: Parcel.obtain()
+Parcel -> Parcel: new Parcel(0)
+Parcel -> Parcel: init(nativePtr)
+Parcel -> android_os_Parcel: nativeCreate()
+android_os_Parcel -> Parcel.cpp: new Parcel()
+Parcel.cpp --> android_os_Parcel: return reinterpret_cast<jlong>(parcel)
+Parcel --> activity: return Parcel parcel
+
+activity -> Parcel: writeInterfaceToken(IServiceManager.descriptor)
+Parcel -> android_os_Parcel: nativeWriteInterfaceToken(mNativePtr, interfaceName)
+android_os_Parcel -> Parcel.cpp: writeInterfaceToken(str)
+
+Parcel.cpp -> Parcel.cpp: writeInt32(threadState->getStrictModePolicy() | STRICT_MODE_PENALTY_GATHER)
+Parcel.cpp -> Parcel.cpp: writeAligned(val)
+
+Parcel.cpp -> Parcel.cpp : writeString16(interface)
+Parcel.cpp -> Parcel.cpp : writeInt32(len)
+Parcel.cpp -> Parcel.cpp : writeAligned(val)
+Parcel.cpp -> Parcel.cpp : writeInplace(len+sizeof(char16_t))
+Parcel.cpp -> Parcel.cpp : writeInplace(len+sizeof(char16_t))
+@enduml

@@ -1,0 +1,64 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+===Camera.open()===
+Activity -> Camera: 打开摄像头\nCamera.open()
+Camera -> Camera: new Camera(cameraId)
+
+' cameraInitNormal
+Camera -> Camera: cameraInitNormal(cameraId)
+Camera -> Camera: cameraInitVersion(cameraId, CAMERA_HAL_API_VERSION_NORMAL_CONNECT)
+Camera -> Camera: native_setup(new WeakReference<Camera>(this), cameraId, halVersion, ActivityThread.currentOpPackageName())
+
+' native_setup
+Camera -> android_hardware_Camera: android_hardware_Camera_native_setup
+android_hardware_Camera -> Camera.cpp: Camera::connect(cameraId, clientName, Camera::USE_CALLING_UID, Camera::USE_CALLING_PID)
+Camera.cpp -> CameraBase.cpp: CameraBaseT::connect(cameraId, clientPackageName, clientUid, clientPid)
+CameraBase.cpp --> Camera.cpp: 实例化一个Camera并返回 sp<TCam> TCam是Camera类型
+Camera.cpp --> android_hardware_Camera: 返回 sp<Camera> camera
+
+' return object
+android_hardware_Camera -> JNICameraContext: new JNICameraContext(env, weak_this, clazz, camera)
+JNICameraContext -> JNICameraContext: 记录camera mCamera = camera
+JNICameraContext --> android_hardware_Camera: return sp<JNICameraContext> context
+android_hardware_Camera --> android_hardware_Camera: save context in opaque field\nenv->SetLongField(thiz, fields.context, (jlong)context.get());
+
+android_hardware_Camera -> CameraBase.cpp: Camera::getCameraInfo(cameraId, &cameraInfo)
+android_hardware_Camera -> CameraBase.cpp: 返回获取CameraInfo的结果 status_t rc，并且更新默认显示方向
+
+' initAppOps
+Camera -> Camera: initAppOps()
+
+' return Camera
+Camera --> Activity: return Camera
+
+===camera.setPreviewDisplay(holder)===
+Activity -> Camera: camera.setPreviewDisplay(holder)
+Camera -> Camera: setPreviewSurface(holder.getSurface())
+Camera -> android_hardware_Camera: android_hardware_Camera_setPreviewSurface()
+android_hardware_Camera -> android_hardware_Camera: get_native_camera() 通过 JNICameraContext 获取Camera对象
+android_hardware_Camera -> android_hardware_Camera: android_view_Surface_getSurface获取surface：补充初始化逻辑
+android_hardware_Camera -> Camera.cpp: camera->setPreviewTarget(gbp)
+
+===camera.startPreview()===
+Activity -> Camera: camera.startPreview()
+Camera -> android_hardware_Camera: camera.startPreview()
+android_hardware_Camera -> android_hardware_Camera: get_native_camera() 通过 JNICameraContext 获取Camera对象
+android_hardware_Camera -> Camera.cpp: camera->startPreview()
+Camera.cpp -> ICamera.BpCamera: startPreview()
+ICamera.BpCamera -> ICamera.BnCamera: remote()->transact(START_PREVIEW, data, &reply)
+ICamera.BnCamera -> CameraClient: 实现了startPreview()
+CameraClient -> CameraClient: startCameraMode()
+CameraClient -> CameraClient: startCameraMode(CAMERA_PREVIEW_MODE)
+CameraClient -> CameraClient: startPreviewMode()
+CameraClient -> CameraHardwareInterface: mHardware->setPreviewWindow(mPreviewWindow)
+CameraClient -> CameraHardwareInterface: mHardware->startPreview()
+CameraHardwareInterface -> CameraDevice: mHidlDevice->startPreview()
+CameraDevice -> QCamera2HardwareInterface: mDevice->ops->start_preview(mDevice)
+QCamera2HardwareInterface -> QCamera2HardwareInterface: QCamera2HardwareInterface::processAPI()
+QCamera2HardwareInterface -> QCameraStateMachine: m_stateMachine.procAPI(api, api_payload)
+
+
+@enduml

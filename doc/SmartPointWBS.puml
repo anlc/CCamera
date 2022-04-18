@@ -1,0 +1,15 @@
+@startwbs
+'https://plantuml.com/wbs-diagram
+
+* root
+' system ===
+** system // Android系统设施, 包括以下几个目录
+*** core // 系统核心工具盒接口
+**** adb // adb调试工具
+**** astboot // 快速启动相关  
+**** include // 系统接口头文件
+**** init // init程序源代码 
+**** libutils // 系统基本库
+
+
+@endwbs

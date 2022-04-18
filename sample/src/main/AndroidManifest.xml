@@ -25,6 +25,7 @@
         <activity android:name=".GLSurfaceViewActivity" />
         <activity android:name=".camera.CameraActivity" />
         <activity android:name=".TestActivity" />
+        <activity android:name=".DispatchActivity" />
     </application>
 
 </manifest>

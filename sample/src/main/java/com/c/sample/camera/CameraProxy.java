@@ -34,12 +34,25 @@ public class CameraProxy {
     private CameraDevice mCameraDevice;
     private ImageReader mImageReader;
     private CameraCaptureSession mCameraCaptureSession;
+    private CameraConfig mCameraConfig;
 
     public CameraProxy(Context context) {
         mCameraManager = (CameraManager) context.getSystemService(CAMERA_SERVICE);
         HandlerThread camera = new HandlerThread("camera");
         camera.start();
         mHandler = new Handler(camera.getLooper());
+        try {
+            String[] cameraIdList = mCameraManager.getCameraIdList();
+            CameraManagerImpl cameraManager = new CameraManagerImpl(mCameraManager);
+            if (mCameraConfig == null) {
+                mCameraConfig = new CameraConfig(cameraManager);
+            }
+            mCameraConfig.initFacing(cameraIdList);
+            Log.i(TAG, "CameraProxy: cameraIdList : " + Arrays.toString(cameraIdList));
+            Log.i(TAG, "CameraProxy: " + Arrays.toString(mCameraConfig.getFacingList().toArray(new CameraManagerFacade.Facing[0])));
+        } catch (CameraAccessException e) {
+            e.printStackTrace();
+        }
     }
 
     public void closeCamera() {

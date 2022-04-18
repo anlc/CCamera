@@ -1,0 +1,19 @@
+@startuml
+
+' actor -> sp: ref
+' sp -> LightRefBase: incStrong(this)
+' actor -> sp: incStrong(this)
+
+actor -> wp: init
+wp -> RefBase: other->createWeak(this)
+RefBase -> weakref_type: mRefs->incWeak(id)
+weakref_type -> weakref_impl: weakref_impl* const impl
+weakref_type -> weakref_impl: impl->addWeakRef(id)
+weakref_impl -> weakref_impl: addRef(&mWeakRefs, id, mWeak.load(std::memory_order_relaxed))
+weakref_impl -> weakref_impl: impl->mWeak.fetch_add(1, std::memory_order_relaxed)
+wp <-- RefBase: weakref_impl* const mRefs
+wp -> wp: weakref_type* m_refs = mRefs
+
+actor <-- wp: ref
+
+@enduml

@@ -1,0 +1,86 @@
+@startuml
+
+namespace frameworks{
+    
+    namespace native.libs.binder.include.binder{
+        interface BBinder
+    }
+
+    namespace base{
+
+        namespace core.java{
+
+            namespace android.view{
+
+                interface IWindowManager<<aidl>>{
+                    IWindowSession openSession(in IWindowSessionCallback callback)
+                }
+            }
+
+            namespace android.os{
+
+                interface IInterface{
+                    + IBinder asBinder()
+                }
+
+                interface IBinder
+                class Binder{
+                    - final long mObject
+                    {static} native long getNativeBBinderHolder()
+                }
+
+                note right of Binder::mObject
+                JavaBBinderHolder object
+                end note
+
+                IBinder <|.. Binder
+            }
+        }
+
+        namespace services.core.java.com.android.server.wm{
+
+            abstract class AbsWindowManagerService
+            class WindowManagerService
+
+            AbsWindowManagerService <|-- WindowManagerService
+            gen.android.view.Stub <|-- AbsWindowManagerService
+        }
+
+        namespace frameworks.base.core.jni{
+
+            class android_util_Binder<<cpp>>{
+                static jlong android_os_Binder_getNativeBBinderHolder(JNIEnv* env, jobject clazz)
+                sp<IBinder> ibinderForJavaObject(JNIEnv* env, jobject obj)
+            }
+
+            class JavaBBinderHolder{
+                - wp<JavaBBinder> mBinder
+                + sp<JavaBBinder> get(JNIEnv* env, jobject obj)
+            }
+
+            class JavaBBinder{
+                status_t onTransact
+            }
+
+            android_util_Binder +-- JavaBBinderHolder
+            android_util_Binder +-- JavaBBinder
+            native.libs.binder.include.binder.BBinder <|-- JavaBBinder
+        }
+    }
+}
+namespace gen.android.view{
+
+    interface IWindowManager extends android.os.IInterface
+
+    class Default implements IWindowManager
+
+    abstract class Stub extends android.os.Binder implements IWindowManager
+
+    class Proxy implements IWindowManager
+
+    IWindowManager +-- Default
+    IWindowManager +-- Stub
+    Stub +-- Proxy
+}
+
+@enduml

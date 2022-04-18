@@ -1,0 +1,67 @@
+@startuml
+
+namespace frameworks{
+
+    namespace av.camera.cameraserver{
+
+        class main_cameraserver<<cpp>>
+
+        main_cameraserver -> native.libs.binder.ProcessState
+        main_cameraserver -> native.libs.binder.IPCThreadState
+    }
+
+    namespace native.libs.binder{
+
+        namespace include.binder{
+            interface .IBinder<<h>>  extends system.core.libutils.include.utils.RefBase
+            interface .Binder<<h>>
+            interface .BBinder
+
+            .IBinder <|.. .BBinder
+            .Binder +-- .BBinder
+        }
+
+        class Binder<<cpp>>
+        class BBinder<<cpp>>
+        .Binder <|-- Binder
+        .BBinder <|-- BBinder
+        Binder +-- BBinder
+
+        class IPCThreadState<<cpp>>{
+            {static}  IPCThreadState*  self()
+            void IPCThreadState::joinThreadPool(bool isMain)
+        }
+
+        class ProcessState<<cpp>>{
+            void ProcessState::startThreadPool()
+            void ProcessState::spawnPooledThread(bool isMain)
+            String8 ProcessState::makeBinderThreadName()
+        }
+
+        class PoolThread{
+            virtual bool threadLoop()
+        }
+
+        system.core.libutils.Threads <|.. PoolThread
+        ProcessState -> IPCThreadState
+        ' ProcessState +-- PoolThread
+        PoolThread +-- ProcessState
+    }
+}
+
+namespace system.core.libutils{
+
+    namespace include.utils{
+        interface RefBase<<h>>
+
+        interface .Thread<<h>> {
+            virtual status_t run(const char* name, int32_t priority = PRIORITY_DEFAULT, size_t stack = 0)
+        }
+        RefBase <|.. .Thread
+    }
+    class Threads<<cpp>>
+
+    .Thread <|-- Threads
+}
+
+@enduml

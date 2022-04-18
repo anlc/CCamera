@@ -1,0 +1,68 @@
+@startuml
+
+namespace system.core.init{
+    class main{
+        int main(int argc, char** argv)
+    }
+
+    class first_stage_init{
+        int FirstStageMain(int argc, char** argv)
+    }
+
+    class init{
+        int SecondStageMain(int argc, char** argv)
+    }
+
+    class property_service{
+        void PropertyInit()
+    }
+
+    class epoll{
+        Result<void> Open()
+    }
+
+    class action_manager
+
+    class service_list
+
+    first_stage_init <-- main
+
+    main -right-> init
+    init --> property_service
+    init o-- epoll
+
+    init o-- action_manager
+    init o-- service_list
+
+    init -> parser
+}
+
+namespace system.core.init{
+    class parser{
+        + bool ParseConfig(const std::string& path);
+        + bool ParseConfigFile(const std::string& path);
+        - void ParseData(const std::string& filename, std::string* data);
+    }
+
+    class service_parser
+    class action_parser
+    class import_parser
+
+    class SectionParser{
+        virtual ~SectionParser() {}
+        virtual Result<void> ParseSection(std::vector<std::string>&& args, const std::string& filename, int line) = 0;
+        virtual Result<void> ParseLineSection(std::vector<std::string>&&, int) { return {}; };
+        virtual Result<void> EndSection() { return {}; };
+        virtual void EndFile(){};
+    }
+
+    SectionParser <|-- service_parser
+    SectionParser <|-- action_parser
+    SectionParser <|-- import_parser
+
+    service_parser --o parser
+    action_parser --o parser
+    import_parser --o parser
+}
+
+@enduml

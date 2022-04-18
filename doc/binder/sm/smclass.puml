@@ -1,0 +1,71 @@
+@startuml
+
+namespace 9.frameworks.native.cmds.servicemanager{
+
+    class service_manager{
+        struct svcinfo *svclist = NULL;
+
+        int main(int argc, char** argv)
+        int svcmgr_handler(struct binder_state *bs, struct binder_transaction_data *txn, struct binder_io *msg, struct binder_io *reply)
+    }
+
+    class svcinfo <<struct>>{
+        struct svcinfo *next;
+        uint32_t handle;
+        struct binder_death death;
+        int allow_isolated;
+        uint32_t dumpsys_priority;
+        size_t len;
+        uint16_t name[0];
+    }
+
+    service_manager +-- svcinfo
+
+    class binder{
+        struct binder_state *binder_open(const char* driver, size_t mapsize)
+        int binder_become_context_manager(struct binder_state *bs)
+        void binder_loop(struct binder_state *bs, binder_handler func)
+    }
+
+    class enum<<enum>> {
+        PING_TRANSACTION  = B_PACK_CHARS('_','P','N','G'),
+        SVC_MGR_GET_SERVICE = 1,
+        SVC_MGR_CHECK_SERVICE,
+        SVC_MGR_ADD_SERVICE,
+        SVC_MGR_LIST_SERVICES,
+    }
+
+    binder +-- enum
+}
+
+namespace 12.frameworks{
+
+    namespace native.cmds.servicemanager{
+        class main{
+            int main(int argc, char** argv)
+        }
+
+        interface RefBase
+
+        class LooperCallback implements RefBase {
+            virtual int handleEvent(int fd, int events, void* data) = 0
+        }
+
+        class BinderCallback extends LooperCallback{
+            static sp<BinderCallback> setupTo(const sp<Looper>& looper)
+            int handleEvent(int .* fd *., int .* events *., void* .* data *.) override
+
+        }
+
+        class ClientCallbackCallback extends LooperCallback{
+            static sp<ClientCallbackCallback> setupTo(const sp<Looper>& looper, const sp<ServiceManager>& manager)
+            int handleEvent(int .* fd *., int .* events *., void* .* data *.) override
+        }
+    }
+
+    namespace base.core.java.android.os{
+        class ServiceManager
+    }
+}
+
+@enduml
