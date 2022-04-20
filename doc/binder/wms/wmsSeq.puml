@@ -1,0 +1,59 @@
+@startuml
+
+SystemServer -> ProcessState: ProcessState::self()->startThreadPool()
+ProcessState -> ProcessState: spawnPooledThread(true)
+ProcessState -> ProcessState: makeBinderThreadName()
+ProcessState -> PoolThread: new PoolThread(isMain)
+ProcessState -> Thread: run(name.string())
+Thread -> Thread: androidCreateRawThreadEtc(_threadLoop, this, name, priority, stack, &mThread)
+Thread -> Thread: _threadLoop
+Thread -> PoolThread: self->threadLoop()
+PoolThread -> IPCThreadState: IPCThreadState::self()->joinThreadPool(mIsMain);
+loop result != -ECONNREFUSED && result != -EBADF
+    IPCThreadState -> IPCThreadState: getAndExecuteCommand()
+    IPCThreadState -> IPCThreadState: result = talkWithDriver()
+    alt result >= NO_ERROR
+        IPCThreadState -> IPCThreadState: executeCommand(cmd)
+        IPCThreadState -> BBinder: mIn.read(&tr, sizeof(tr)
+        IPCThreadState -> BBinder: tr.cookie->transact(tr.code, buffer, &reply, tr.flags)
+        IPCThreadState -> JavaBBinder: onTransact(code, data, reply, flags)
+        JavaBBinder -> Binder.java: env->CallBooleanMethod(mObject, gBinderOffsets.mExecTransact, code, &data, reply, flags)
+        JavaBBinder -> Binder.java: execTransact(int code, long dataObj, long replyObj, int flags) 
+        JavaBBinder -> WindowManagerService: onTransact(code, data, reply, flags)
+        WindowManagerService -> IWindowManager: onTransact(code, data, reply, flags)
+    end
+end
+
+SystemServer -> ServiceManager: ServiceManager.addService(Context.WINDOW_SERVICE, wm,...)
+ServiceManager -> ServiceManagerProxy: getIServiceManager().addService(name, service, allowIsolated, dumpPriority)
+ServiceManagerProxy -> Parcel: data.writeStrongBinder(service)
+Parcel -> android_os_Parcel: nativeWriteStrongBinder(mNativePtr, val)
+
+android_os_Parcel -> android_os_Parcel: ibinderForJavaObject(env, object)
+android_os_Parcel -> JavaBBinderHolder: JavaBBinderHolder* jbh =\nenv->GetLongField(obj, gBinderOffsets.mObject)\njbh->get(env, obj)
+JavaBBinderHolder -> JavaBBinder: new JavaBBinder(env, obj)
+JavaBBinderHolder <-- JavaBBinder: return sp<JavaBBinder> b
+android_os_Parcel <-- JavaBBinderHolder: sp<JavaBBinder> b
+
+android_os_Parcel -> Parcel.cpp: parcel->writeStrongBinder(b)
+Parcel.cpp -> Parcel.cpp: flattenBinder(val)
+Parcel.cpp -> BBinder: BBinder *local = binder->localBinder()
+Parcel.cpp <-- BBinder: return this
+Parcel.cpp -> Parcel.cpp: finishFlattenBinder(binder, obj)
+Parcel.cpp -> Parcel.cpp: writeInt32(internal::Stability::get(binder.get()))
+
+ServiceManagerProxy -> BinderProxy: mRemote.transact(GET_SERVICE_TRANSACTION, data, reply, 0)
+BinderProxy -> BinderProxy: transactNative(code, data, reply, flags)
+BinderProxy -> android_util_Binder: android_os_BinderProxy_transact
+android_util_Binder -> BpBinder: target->transact(code, *data, reply, flags)
+BpBinder -> IPCThreadState: IPCThreadState::self()->transact(mHandle, code, data, reply, flags)
+IPCThreadState -> IPCThreadState: writeTransactionData -> mOut.write(&tr, sizeof(tr))
+IPCThreadState -> IPCThreadState: waitForResponse(reply)
+loop handle result
+    IPCThreadState -> IPCThreadState: talkWithDriver()
+    IPCThreadState -> binder: ioctl(mProcess->mDriverFD, BINDER_WRITE_READ, &bwr) >= 0)
+end
+
+binder -> binder: binder_thread_write -> binder_transaction(proc, thread, &tr.transaction_data, cmd == BC_REPLY_SG, tr.buffers_size)
+
+@enduml

@@ -1,0 +1,44 @@
+@startuml
+
+init -> app_main: main
+app_main -> ZygoteInit: runtime.start("com.android.internal.os.ZygoteInit", args, zygote)
+ZygoteInit -> ZygoteInit: preload(bootTimingsTraceLog)
+ZygoteInit -> ZygoteInit: preloadClasses()
+ZygoteInit -> zygoteServer: zygoteServer = new ZygoteServer(isPrimaryZygote)
+
+ZygoteInit -> ZygoteInit: forkSystemServer(abiList, zygoteSocketName, zygoteServer)
+ZygoteInit -> Zygote: pid = Zygote.forkSystemServer(...)
+Zygote -> com_android_internal_os_Zygote: nativeForkSystemServer(uid, gid, gids, ...)
+com_android_internal_os_Zygote -> com_android_internal_os_Zygote: ForkCommon(env, true, fds_to_close, fds_to_ignore,  true)
+com_android_internal_os_Zygote -> kernel: pid_t pid = fork()
+com_android_internal_os_Zygote <-- kernel: return pid
+Zygote <-- com_android_internal_os_Zygote: return pid
+ZygoteInit <-- Zygote: return pid
+ZygoteInit <-- ZygoteInit: return handleSystemServerProcess(parsedArgs)
+
+ZygoteInit -> zygoteServer: zygoteServer.runSelectLoop(abiList)
+loop true
+    zygoteServer -> ZygoteConnection: connection.processOneCommand(this)
+
+    ' forkAndSpecialize
+    ZygoteConnection -> Zygote: pid = Zygote.forkAndSpecialize(...)
+    Zygote -> ZygoteHooks: ZygoteHooks.preFork()
+    ZygoteHooks -> dalvik_system_ZygoteHooks: nativePreFork()
+    dalvik_system_ZygoteHooks -> dalvik_system_ZygoteHooks: runtime->PreZygoteFork()
+
+    Zygote -> Zygote: nativeForkAndSpecialize(...)
+    Zygote -> com_android_internal_os_Zygote: nativeForkAndSpecialize(...)
+    com_android_internal_os_Zygote -> com_android_internal_os_Zygote: ForkCommon(env, true, fds_to_close, fds_to_ignore,  true)
+    com_android_internal_os_Zygote -> kernel: pid_t pid = fork()
+    com_android_internal_os_Zygote <-- kernel: return pid
+    com_android_internal_os_Zygote -> com_android_internal_os_Zygote: SpecializeCommon(...)
+    com_android_internal_os_Zygote -> com_android_internal_os_Zygote: env->CallStaticVoidMethod(...)
+
+    alt pid == 0
+        ZygoteConnection -> ZygoteConnection: handleChildProc(parsedArgs, childPipeFd, parsedArgs.mStartChildZygote)
+    else
+        ZygoteConnection -> ZygoteConnection: handleParentProc(pid, serverPipeFd)
+    end
+end
+
+@enduml

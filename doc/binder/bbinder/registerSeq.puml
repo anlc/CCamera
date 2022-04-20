@@ -14,6 +14,13 @@ loop result != -ECONNREFUSED && result != -EBADF
     IPCThreadState -> IPCThreadState: result = talkWithDriver()
     alt result >= NO_ERROR
         IPCThreadState -> IPCThreadState: executeCommand(cmd)
+        IPCThreadState -> BBinder: mIn.read(&tr, sizeof(tr)
+        IPCThreadState -> BBinder: tr.cookie->transact(tr.code, buffer, &reply, tr.flags)
+        IPCThreadState -> JavaBBinder: onTransact(code, data, reply, flags)
+        JavaBBinder -> Binder.java: env->CallBooleanMethod(mObject, gBinderOffsets.mExecTransact, code, &data, reply, flags)
+        JavaBBinder -> Binder.java: execTransact(int code, long dataObj, long replyObj, int flags) 
+        JavaBBinder -> WindowManagerService: onTransact(code, data, reply, flags)
+        WindowManagerService -> IWindowManager: onTransact(code, data, reply, flags)
     end
 end
 
@@ -22,6 +29,5 @@ android_util_Binder -> android_util_Binder: getNativeBBinderHolder()
 android_util_Binder -> JavaBBinderHolder: new JavaBBinderHolder()
 android_util_Binder <-- JavaBBinderHolder: JavaBBinderHolder* jbh
 Binder <-- android_util_Binder: final long mObject = jbh
-
 
 @enduml

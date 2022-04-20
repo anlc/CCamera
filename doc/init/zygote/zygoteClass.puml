@@ -1,0 +1,67 @@
+@startuml
+
+' file system.core.rootdir.init.zygote64.rc
+
+namespace frameworks.base.core.jni{
+
+    class AndroidRuntime<<cpp>>{
+        void AndroidRuntime::start(const char* className, const Vector<String8>& options, bool zygote)
+        int AndroidRuntime::startVm(JavaVM** pJavaVM, JNIEnv** pEnv, bool zygote, bool primary_zygote)
+    }
+
+    class com_android_internal_os_Zygote<<cpp>>{
+        {static} jint com_android_internal_os_Zygote_nativeForkSystemServer(JNIEnv* env, jclass, uid_t uid, gid_t gid,...)
+        {static} pid_t ForkCommon(JNIEnv* env, bool is_system_server,...)
+        {static} jint com_android_internal_os_Zygote_nativeForkAndSpecialize(...)
+    }
+}
+
+namespace frameworks.base.core.java.com.android.internal.os{
+
+    class Zygote{
+        ~ {static} int forkSystemServer(...)
+        ~ {static} int forkAndSpecialize(...)
+        - {static} native int nativeForkAndSpecialize(...)
+    }
+
+    class ZygoteInit{
+        + {static} void main(String argv[])
+        ~ {static} void preload(TimingsTraceLog bootTimingsTraceLog)
+        - {static} void preloadClasses()
+        - {static} Runnable forkSystemServer(String abiList, String socketName, ZygoteServer zygoteServer)
+    }
+
+    class ZygoteConnection{
+        ~ Runnable processOneCommand(ZygoteServer zygoteServer)
+        - Runnable handleChildProc(ZygoteArguments parsedArgs, FileDescriptor pipeFd, boolean isZygote)
+        - void handleParentProc(int pid, FileDescriptor pipeFd)
+    }
+
+    class ZygoteServer{
+        ~ Runnable runSelectLoop(String abiList)
+    }
+
+    note left of ZygoteServer::runSelectLoop
+    进入死循环, zygote守护
+    end note
+}
+
+namespace frameworks.base.cmds.app_process{
+
+    class app_main<<cpp>>{
+        int main(int argc, char* const argv[])
+    }
+}
+namespace libcore.dalvik.src.main.java.dalvik.system{
+    class ZygoteHooks{
+        + {static} void preFork()
+        - {static} native long nativePreFork()
+    }
+}
+namespace art.runtime.native{
+    class dalvik_system_ZygoteHooks<<cc>>{
+        {static} jlong ZygoteHooks_nativePreFork(JNIEnv* env, jclass)
+    }
+}
+
+@enduml
