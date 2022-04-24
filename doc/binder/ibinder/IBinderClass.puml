@@ -1,0 +1,65 @@
+@startuml
+
+namespace system.core.libutils.include.utils{
+    interface RefBase<<h>>
+}
+
+namespace frameworks{
+
+    namespace native.libs.binder{
+
+        namespace include.binder{
+
+            interface IBinder<<h>>
+            system.core.libutils.include.utils.RefBase <|.. IBinder
+
+            interface BpBinder<<h>>{
+                {static} BpBinder* create(int32_t handle)
+            }
+            IBinder <|.. BpBinder
+        }
+
+        class BpBinder<<cpp>>
+        include.binder.BpBinder <|-- BpBinder
+    }
+
+    namespace base.core{
+
+        namespace java{
+
+            namespace android.os{
+
+                interface IBinder{
+                    IInterface queryLocalInterface(String descriptor)
+                    boolean transact(int code, Parcel data, Parcel reply, int flags)
+                }
+                IBinder -> native.libs.binder.BpBinder
+                IBinder -> jni.android_util_Binder
+
+                class Binder
+                IBinder <|.. Binder
+
+                class BinderProxy{
+                    native boolean transactNative(int code, Parcel data, Parcel reply, int flags)
+                }
+                IBinder <|.. BinderProxy
+
+            }
+
+            namespace com.android.internal.os{
+                class BinderInternal{
+                    {static} native IBinder getContextObject()
+                }
+            }
+        }
+
+        namespace jni{
+            class android_util_Binder<<cpp>>{
+                {static} jobject android_os_BinderInternal_getContextObject(JNIEnv* env, jobject clazz)
+                {static} jboolean android_os_BinderProxy_transact(JNIEnv* env, jobject obj, jint code, jobject dataObj, jobject replyObj, jint flags)
+            }
+        }
+    }
+}
+
+@enduml

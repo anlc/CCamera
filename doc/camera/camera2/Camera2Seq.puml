@@ -1,0 +1,27 @@
+@startuml
+
+=== getSystemService ===
+SystemServiceRegistry -> SystemServiceRegistry: 静态代码块中注册服务\nregisterService(Context.CAMERA_SERVICE, CameraManager.class...)
+
+App -> ContextImpl: getSystemService(CAMERA_SERVICE)
+ContextImpl -> SystemServiceRegistry: SystemServiceRegistry.getSystemService(this, name)
+ContextImpl <-- SystemServiceRegistry: return CameraManager
+App <-- ContextImpl: return mCameraManager
+
+=== openCamera ===
+App -> CameraManager: mCameraManager.openCamera
+CameraManager -> CameraManager: openCameraForUid
+CameraManager -> CameraManager: openCameraDeviceUserAsync
+
+CameraManager -> CameraDeviceImpl: deviceImpl = new CameraDeviceImpl(...)
+CameraManager -> CameraDeviceImpl: deviceImpl.getCallbacks()
+CameraManager <-- CameraDeviceImpl: return ICameraDeviceCallbacks
+CameraManager -> CameraService: CameraManagerGlobal.get().getCameraService()
+CameraManager <-- CameraService: return ICameraService cameraService
+CameraManager -> CameraService: cameraService.connectDevice(...)
+CameraManager <-- CameraService: return ICameraDeviceUser cameraUser
+CameraManager <-- CameraDeviceImpl: deviceImpl.setRemoteDevice(cameraUser)
+App <-- CameraManager: return device
+
+
+@enduml

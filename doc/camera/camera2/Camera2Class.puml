@@ -1,0 +1,63 @@
+@startuml
+
+namespace frameworks.base.core.java.android{
+
+    namespace app{
+
+        class SystemServiceRegistry{
+            - {static} final Map<String, String> SYSTEM_SERVICE_CLASS_NAMES
+            - {static} <T> void registerService(String serviceName, Class<T> serviceClass, ServiceFetcher<T> serviceFetcher)
+            + {static} String getSystemServiceClassName(String name)
+        }
+
+        abstract class CachedServiceFetcher<T>{
+            abstract T createService(ContextImpl ctx)
+        }
+
+        interface ServiceFetcher<T>{
+            T getService(ContextImpl ctx)
+        }
+
+        ServiceFetcher <|.. CachedServiceFetcher
+        SystemServiceRegistry *-- CachedServiceFetcher
+
+    }
+
+    namespace hardware.camera2{
+
+        namespace  ICameraDeviceCallbacks{
+            class Stub
+        }
+
+        namespace impl{
+
+            class CameraDeviceImpl{
+                CameraDeviceImpl(String cameraId, StateCallback callback, Executor executor, CameraCharacteristics characteristics, int appTargetSdkVersion)
+            }
+            hardware.camera2.CameraDevice <|-- CameraDeviceImpl
+
+            class CameraDeviceCallbacks
+            CameraDeviceImpl +-- CameraDeviceCallbacks
+            hardware.camera2.ICameraDeviceCallbacks.Stub <|-- CameraDeviceCallbacks
+
+        }
+
+        abstract class CameraDevice
+
+        class CameraManager{
+            + void openCamera(String cameraId, CameraDevice.StateCallback callback, Handler handler)
+            + void openCameraForUid(String cameraId, CameraDevice.StateCallback callback, Executor executor, int clientUid)
+        }
+        CameraManager o-- CameraDevice
+        CameraManager *-- impl.CameraDeviceCallbacks
+
+        namespace ICameraServiceListener{
+            class Stub
+        }
+        class CameraManagerGlobal
+        CameraManager +-- CameraManagerGlobal
+        hardware.camera2.ICameraServiceListener.Stub <|-- CameraManagerGlobal
+    }
+}
+
+@enduml

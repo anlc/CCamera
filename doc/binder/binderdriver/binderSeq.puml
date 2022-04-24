@@ -1,0 +1,11 @@
+@startuml
+
+participant actor
+
+kernal -> binder: init 
+binder -> binder: device_initcall(binder_init) 
+binder -> binder: binder_init(void)
+binder -> binder: static int __init binder_init(void) 
+binder --> kernal: misc_register(&binder_device->miscdev)\n注册binder驱动
+
+@enduml

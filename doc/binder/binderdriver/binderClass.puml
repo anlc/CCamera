@@ -1,0 +1,107 @@
+@startuml
+
+namespace kernel.msm-4.14.drivers.android{
+
+    class binder<<c>>{
+        {static} int __init binder_init(void)
+        {static} int __init init_binder_device(const char *name)
+        {static} int binder_open(struct inode *nodp, struct file *filp)
+        {static} int binder_mmap(struct file *filp, struct vm_area_struct *vma)
+        {static} long binder_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
+
+        {static} void binder_transaction(struct binder_proc *proc, struct binder_thread *thread, struct binder_transaction_data *tr, int reply, binder_size_t extra_buffers_size)
+        {static} int binder_translate_binder(struct flat_binder_object *fp, struct binder_transaction *t, struct binder_thread *thread)
+        {static} struct binder_node *binder_get_node(struct binder_proc *proc, binder_uintptr_t ptr)
+        {static} struct binder_node *binder_new_node(struct binder_proc *proc, struct flat_binder_object *fp)
+    }
+
+    note right of binder::init_binder_device
+    驱动注册
+    end note
+
+    note right of binder::binder_open
+    初始化 binder_proc 结构体
+    end note
+
+    note right of binder::binder_mmap
+    申请地址, mmap 映射地址
+    end note
+
+    note right of binder::binder_ioctl
+    读写等对binder的各种操作
+    end note
+
+    class binder_fops<<struct>>{
+        .owner = THIS_MODULE
+        .poll = binder_poll
+        .unlocked_ioctl = binder_ioctl
+        .compat_ioctl = binder_ioctl
+        .mmap = binder_mmap
+        .open = binder_open
+        .flush = binder_flush
+        .release = binder_release
+    }
+
+    class binder_proc<<struct>> {
+        struct hlist_node proc_node
+        struct rb_root threads
+        struct rb_root nodes
+        struct rb_root refs_by_desc
+        struct rb_root refs_by_node
+        struct list_head waiting_threads
+        int pid
+        struct task_struct *tsk
+        struct files_struct *files
+        struct mutex files_lock
+        struct hlist_node deferred_work_node
+        int deferred_work
+        bool is_dead
+
+        struct list_head todo
+        struct binder_stats stats
+        struct list_head delivered_death
+        int max_threads
+        int requested_threads
+        int requested_threads_started
+        atomic_t tmp_ref
+        struct binder_priority default_priority
+        struct dentry *debugfs_entry
+        struct binder_alloc alloc
+        struct binder_context *context
+        spinlock_t inner_lock
+        spinlock_t outer_lock
+        struct dentry *binderfs_entry
+    }
+
+    class binder_node<<struct>> {
+        int debug_id;
+        spinlock_t lock;
+        struct binder_work work;
+        struct binder_proc *proc;
+        struct hlist_head refs;
+        int internal_strong_refs;
+        int local_weak_refs;
+        int local_strong_refs;
+        int tmp_refs;
+        binder_uintptr_t ptr;
+        binder_uintptr_t cookie;
+        bool has_async_transaction;
+        struct list_head async_todo;
+    }
+
+    note left of binder_node::binder_proc
+    此binder对象所属的进程
+    end note
+    note left of binder_node::ptr
+    fp->binder
+    end note
+    note left of binder_node::cookie
+    额外信息
+    比如这个场景中对应的BBinder对象的内存地址
+    end note
+
+    binder +-- binder_proc
+    binder +-- binder_fops
+    binder +-- binder_node
+}
+@enduml

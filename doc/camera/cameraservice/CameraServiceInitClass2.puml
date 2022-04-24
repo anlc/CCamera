@@ -1,0 +1,65 @@
+@startuml
+
+namespace frameworks{
+
+    namespace av{
+
+        namespace camera.cameraserver {
+            
+            class main_cameraserver<<cpp>>{
+                int main(int argc __unused, char** argv __unused)
+            }
+
+            main_cameraserver -> native.libs.binder.include.binder.BinderService
+        }
+        namespace services.camera.libcameraservice {
+
+            namespace common{
+                interface .CameraProviderManager{
+                    std::vector<std::string> getCameraDeviceIds()
+                    status_t initialize(wp<StatusListener> listener, ServiceInteractionProxy *proxy);
+                }
+                class CameraProviderManager
+                class CameraProviderManager.DeviceInfo1
+            }
+
+            interface .CameraService<<h>>{
+                {static} char const* getServiceName()
+                virtual void onFirstRef()
+            }
+            class CameraService<<cpp>>
+            .CameraService <|.. CameraService
+
+            note left of .CameraService::getServiceName
+            return "media.camera"
+            注册到 SystemService
+            end note
+
+            note left of .CameraService::onFirstRef
+            onFirstRef() 属于其父类 RefBase,
+            该函数在强引用 sp 新增引用计数时调用
+            延迟加载相机 HAL 模块
+            end note
+        }
+    }
+
+    namespace native{
+
+        namespace libs.binder.include.binder {
+            class BinderService{
+                {static} status_t publish(bool allowIsolated, int dumpFlags)
+                {static} void instantiate()
+            }
+
+            BinderService <|-- frameworks.av.services.camera.libcameraservice.CameraService
+            BinderService -> frameworks.native.cmds.servicemanager.ServiceManager
+        }
+
+        namespace cmds.servicemanager {
+            interface ServiceManager
+        }
+
+    }
+}
+
+@enduml

@@ -1,11 +1,61 @@
 @startuml
 
-participant actor
+actor -> ServiceManager: ServiceManager.getService(name)
+ServiceManager -> ServiceManager: rawGetService(name)
 
-kernal -> binder: init 
-binder -> binder: device_initcall(binder_init) 
-binder -> binder: binder_init(void)
-binder -> binder: static int __init binder_init(void) 
-binder --> kernal: misc_register(&binder_device->miscdev)\n注册binder驱动
+ServiceManager -> ServiceManager: getIServiceManager()
+ServiceManager -> ServiceManagerNative: ServiceManagerNative.asInterface(BinderInternal.getContextObject())
+== getBpBinder ==
+ServiceManager -> BinderInternal: BinderInternal.getContextObject()
+BinderInternal -> android_util_Binder: android_os_BinderInternal_getContextObject
+' ProcessState::self()
+android_util_Binder -> ProcessState: ProcessState::self()
+ProcessState -> ProcessState: new ProcessState(kDefaultDriver)
+ProcessState -> ProcessState: mDriverFD = open_driver(driver)
+ProcessState -> kernel: mmap(nullptr, BINDER_VM_SIZE, PROT_READ, MAP_PRIVATE | MAP_NORESERVE, mDriverFD, 0)
+android_util_Binder <-- ProcessState: return sp<ProcessState> gProcess
+' getContextObject(NULL)
+android_util_Binder -> ProcessState: ProcessState::self()->getContextObject(NULL)
+ProcessState -> ProcessState: getStrongProxyForHandle(0)
+ProcessState -> ProcessState: handle_entry* e = lookupHandleLocked(handle)
+alt e->binder ==nullptr || !e->refs->attemptIncWeak(this)
+    ProcessState -> BpBinder: BpBinder::create(handle)
+    BpBinder -> BpBinder: new BpBinder(handle, trackedUid)
+    BpBinder -> RefBase: extendObjectLifetime(OBJECT_LIFETIME_WEAK)
+
+    BpBinder -> IPCThreadState: IPCThreadState::self()
+    IPCThreadState -> IPCThreadState: new IPCThreadState
+    IPCThreadState -> IPCThreadState: mProcess = ProcessState::self()
+    IPCThreadState -> IPCThreadState: init mIn & mOut
+
+    BpBinder -> IPCThreadState: IPCThreadState::self()->incWeakHandle(handle, this)
+    IPCThreadState -> IPCThreadState: mOut.writeInt32(BC_INCREFS) & mOut.writeInt32(handle)
+    BpBinder <-- IPCThreadState: proxy->getWeakRefs()->incWeak(mProcess.get())
+    ProcessState <-- BpBinder: return sp<IBinder> b
+end
+' javaObjectForIBinder
+android_util_Binder -> android_util_Binder: javaObjectForIBinder(env, b)\njni创建BinderProxy
+ServiceManager <-- android_util_Binder: return BinderProxy
+
+' getIServiceManager()
+ServiceManager -> ServiceManagerNative: ServiceManagerNative.asInterface(BinderProxy)
+ServiceManagerNative -> ServiceManagerProxy: new ServiceManagerProxy(obj)
+ServiceManagerProxy -> ServiceManagerProxy: mRemote = IBinder remote
+ServiceManagerNative <-- ServiceManagerProxy: return ServiceManagerProxy
+ServiceManager <-- ServiceManagerNative: return IServiceManager sServiceManager
+' getService(name)
+ServiceManager -> ServiceManagerProxy: getIServiceManager().getService(name)
+ServiceManagerProxy -> BinderProxy: mRemote.transact(GET_SERVICE_TRANSACTION, data, reply, 0)
+BinderProxy -> BinderProxy: transactNative(code, data, reply, flags)
+BinderProxy -> android_util_Binder: android_os_BinderProxy_transact
+android_util_Binder -> BpBinder: target->transact(code, *data, reply, flags)
+BpBinder -> IPCThreadState: IPCThreadState::self()->transact(mHandle, code, data, reply, flags)
+IPCThreadState -> IPCThreadState: writeTransactionData -> mOut.write(&tr, sizeof(tr))
+IPCThreadState -> IPCThreadState: waitForResponse(reply)
+loop handle result
+    IPCThreadState -> IPCThreadState: talkWithDriver()
+    IPCThreadState -> binder: ioctl(mProcess->mDriverFD, BINDER_WRITE_READ, &bwr) >= 0)
+end
+
 
 @enduml
