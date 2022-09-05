@@ -14,16 +14,17 @@ import androidx.core.app.ActivityCompat;
 
 public class CameraApi2 implements Camera {
 
-    private Context mContext;
-    private final CameraManager mCameraManager;
+    private HandlerThread mCameraThread;
     private Handler mHandler;
+    private CameraManager mCameraManager;
+    private final Context mContext;
 
     public CameraApi2(Context context) {
         this.mContext = context;
         mCameraManager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
-        HandlerThread camera = new HandlerThread("camera");
-        camera.start();
-        mHandler = new Handler(camera.getLooper());
+        mCameraThread = new HandlerThread("camera");
+        mCameraThread.start();
+        mHandler = new Handler(mCameraThread.getLooper());
     }
 
     @Override
@@ -52,7 +53,15 @@ public class CameraApi2 implements Camera {
 
     @Override
     public void close() {
-
+        if (mCameraThread != null) {
+            try {
+                mCameraThread.quitSafely();
+                mCameraThread.join();
+                mCameraThread = null;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

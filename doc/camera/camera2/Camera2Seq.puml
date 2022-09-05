@@ -1,6 +1,6 @@
 @startuml
 
-=== getSystemService ===
+== getSystemService ==
 SystemServiceRegistry -> SystemServiceRegistry: 静态代码块中注册服务\nregisterService(Context.CAMERA_SERVICE, CameraManager.class...)
 
 App -> ContextImpl: getSystemService(CAMERA_SERVICE)
@@ -8,7 +8,7 @@ ContextImpl -> SystemServiceRegistry: SystemServiceRegistry.getSystemService(thi
 ContextImpl <-- SystemServiceRegistry: return CameraManager
 App <-- ContextImpl: return mCameraManager
 
-=== openCamera ===
+== openCamera  ==
 App -> CameraManager: mCameraManager.openCamera
 CameraManager -> CameraManager: openCameraForUid
 CameraManager -> CameraManager: openCameraDeviceUserAsync

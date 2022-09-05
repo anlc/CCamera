@@ -23,7 +23,7 @@ public class CameraActivity extends AppCompatActivity {
         svPreview.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(@NonNull SurfaceHolder holder) {
-                openCamera();
+                openCamera(holder);
             }
 
             @Override
