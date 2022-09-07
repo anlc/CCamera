@@ -20,15 +20,15 @@ CameraManager 是通过调用 getSystemService(CAMERA_SERVICE) 获取的
  sequenceDiagram
   	participant Activity
     
-    ContextImpl -> SystemServiceRegistry: SystemServiceRegistry.createServiceCache()
-    SystemServiceRegistry -> SystemServiceRegistry: static 代码块中 registerService 
+    ContextImpl ->> SystemServiceRegistry: SystemServiceRegistry.createServiceCache()
+    SystemServiceRegistry ->> SystemServiceRegistry: static 代码块中 registerService 
     
-    Activity -> ContextImpl: getSystemService(CAMERA_SERVICE)
-    ContextImpl -> SystemServiceRegistry: getSystemService(this, name)
-    SystemServiceRegistry -> ServiceFetcher: getService(ctx)
-    ServiceFetcher --> SystemServiceRegistry: return new CameraManager(ctx)
-    SystemServiceRegistry --> ContextImpl: return CameraManager
-    ContextImpl --> Activity: return CameraManager
+    Activity ->> ContextImpl: getSystemService(CAMERA_SERVICE)
+    ContextImpl ->> SystemServiceRegistry: getSystemService(this, name)
+    SystemServiceRegistry ->> ServiceFetcher: getService(ctx)
+    ServiceFetcher -->> SystemServiceRegistry: return new CameraManager(ctx)
+    SystemServiceRegistry -->> ContextImpl: return CameraManager
+    ContextImpl -->> Activity: return CameraManager
 ```
 
 ```java
@@ -90,14 +90,14 @@ class SystemServiceRegistry {
  sequenceDiagram
   	participant Activity
     
-    Activity -> CameraManager: openCamera(0, stateCallback, mHandler)
-    CameraManager -> CameraManager: openCameraDeviceUserAsync(cameraId, callback, executor, clientUid, oomScoreOffset)
-    CameraManager -> CameraDeviceImpl: CameraDeviceImpl deviceImpl = new CameraDeviceImpl(..)
-    CameraManager -> CameraDeviceImpl: ICameraDeviceCallbacks callbacks = deviceImpl.getCallbacks()
-    CameraManager -> CameraManagerGlobal: ICameraService cameraService = CameraManagerGlobal.get().getCameraService();
-    CameraManager -> CameraManagerGlobal: ICameraDeviceUser cameraUser = cameraService.connectDevice()
-    CameraManager -> CameraDeviceImpl: deviceImpl.setRemoteDevice(cameraUser)
-    CameraDeviceImpl --> CameraManager: sessionCallback.onOpened(CameraDeviceImpl.this)
+    Activity ->> CameraManager: openCamera(0, stateCallback, mHandler)
+    CameraManager ->> CameraManager: openCameraDeviceUserAsync(cameraId, callback, executor, clientUid, oomScoreOffset)
+    CameraManager ->> CameraDeviceImpl: CameraDeviceImpl deviceImpl = new CameraDeviceImpl(..)
+    CameraManager ->> CameraDeviceImpl: ICameraDeviceCallbacks callbacks = deviceImpl.getCallbacks()
+    CameraManager ->> CameraManagerGlobal: ICameraService cameraService = CameraManagerGlobal.get().getCameraService();
+    CameraManager ->> CameraManagerGlobal: ICameraDeviceUser cameraUser = cameraService.connectDevice()
+    CameraManager ->> CameraDeviceImpl: deviceImpl.setRemoteDevice(cameraUser)
+    CameraDeviceImpl -->> CameraManager: sessionCallback.onOpened(CameraDeviceImpl.this)
 ```
 
 
