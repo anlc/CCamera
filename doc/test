@@ -1,0 +1,19 @@
+private Activity performLaunchActivity(ActivityClientRecord r, Intent customIntent) {
+
+    // 构建 ContextImpl
+    ContextImpl appContext = createBaseContextForActivity(r);
+
+    // 通过反射构建 Activity
+    Activity activity = null;
+    java.lang.ClassLoader cl = appContext.getClassLoader();
+    activity = mInstrumentation.newActivity(cl, component.getClassName(), r.intent);
+
+    // attach  ContextImpl 到 Activity
+    activity.attach(appContext, this, getInstrumentation(), r.token,
+            r.ident, app, r.intent, r.activityInfo, title, r.parent,
+            r.embeddedID, r.lastNonConfigurationInstances, config,
+            r.referrer, r.voiceInteractor, window, r.configCallback,
+            r.assistToken, r.shareableActivityToken);
+
+    return activity;
+}

@@ -1,0 +1,30 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor -> Activity: onCreate
+
+== getCameraManager ==
+Activity -> CameraManager: getSystemService(CAMERA_SERVICE)
+Activity <-- CameraManager: return CameraManager mCameraManager
+
+== getCameraDevice ==
+Activity -> SurfaceView: init
+Activity <-- SurfaceView: openCamera(holder)
+Activity -> StateCallback: new CameraDevice.StateCallback()
+Activity <-- StateCallback: return stateCallback
+Activity -> CameraManager: openCamera(0, stateCallback, mHandler)
+
+== initRequest ==
+CameraManager -> StateCallback: onOpened(CameraDevice camera)
+Activity <-- StateCallback: initPreviewRequest(camera, holder)
+Activity -> Builder: camera.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
+Activity -> Builder: captureRequest.addTarget(holder.getSurface())
+Activity -> CameraCaptureSession.StateCallback: new CameraCaptureSession.StateCallback()
+
+== setRepeatingRequest ==
+Activity -> CameraDevice: session.setRepeatingRequest(captureRequest.build(), null, mHandler);
+
+
+@enduml

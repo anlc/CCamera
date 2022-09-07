@@ -74,12 +74,8 @@ public class SurfaceCamera2Activity extends AppCompatActivity implements View.On
         }
     }
 
-    private ImageReader.OnImageAvailableListener mOnImageAvailableListener = new ImageReader.OnImageAvailableListener
-            () {
-        @Override
-        public void onImageAvailable(ImageReader reader) {
-            new ImageSaveTask().execute(reader.acquireNextImage()); // 保存图片
-        }
+    private ImageReader.OnImageAvailableListener mOnImageAvailableListener = reader -> {
+        new ImageSaveTask().execute(reader.acquireNextImage()); // 保存图片
     };
 
     private class ImageSaveTask extends AsyncTask<Image, Void, Bitmap> {

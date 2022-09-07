@@ -1,0 +1,9 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor -> ActivityThread: performLaunchActivity
+ActivityThread -> ActivityThread: createBaseContextForActivity(r)
+
+@enduml
