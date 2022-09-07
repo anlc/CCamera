@@ -26,9 +26,9 @@ CameraManager 是通过调用 getSystemService(CAMERA_SERVICE) 获取的
     Activity -> ContextImpl: getSystemService(CAMERA_SERVICE)
     ContextImpl -> SystemServiceRegistry: getSystemService(this, name)
     SystemServiceRegistry -> ServiceFetcher: getService(ctx)
-    SystemServiceRegistry <-- ServiceFetcher: return new CameraManager(ctx)
-    ContextImpl <-- SystemServiceRegistry: return CameraManager
-    Activity <-- ContextImpl: return CameraManager
+    ServiceFetcher --> SystemServiceRegistry: return new CameraManager(ctx)
+    SystemServiceRegistry --> ContextImpl: return CameraManager
+    ContextImpl --> Activity: return CameraManager
 ```
 
 ```java
@@ -97,7 +97,7 @@ class SystemServiceRegistry {
     CameraManager -> CameraManagerGlobal: ICameraService cameraService = CameraManagerGlobal.get().getCameraService();
     CameraManager -> CameraManagerGlobal: ICameraDeviceUser cameraUser = cameraService.connectDevice()
     CameraManager -> CameraDeviceImpl: deviceImpl.setRemoteDevice(cameraUser)
-    CameraManager <-- CameraDeviceImpl: sessionCallback.onOpened(CameraDeviceImpl.this)
+    CameraDeviceImpl --> CameraManager: sessionCallback.onOpened(CameraDeviceImpl.this)
 ```
 
 
