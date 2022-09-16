@@ -1,0 +1,16 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+participant Activity
+
+Activity -> ContextImpl: SystemServiceRegistry: getSystemService(this, name)
+Activity <-- ContextImpl: 返回 CameraManager
+
+Activity -> CameraManager: mCameraManager.openCamera(mCameraId, stateCallback, mHandler)
+Activity <-- CameraManager: 回调里返回 CameraDevice
+
+Activity -> CameraDevice: cameraDevice.createCaptureSession(surfaces, stateCallback, mHandler)
+Activity <-- CameraDevice: 回调里返回 CameraCaptureSession
+
+Activity -> CameraCaptureSession: cameraCaptureSession.setRepeatingRequest(captureRequest.build(), null, mHandler)
+@enduml

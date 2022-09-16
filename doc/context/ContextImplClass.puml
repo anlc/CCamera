@@ -1,0 +1,34 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class Context
+
+class ContextImpl {
+    - Object getSystemService(String name)
+}
+
+class ContextWrapper {
+    ~ Context mBase
+}
+note left of ContextWrapper::mBase
+  ContextImpl实例
+end note
+
+class ContextThemeWrapper{
+    - Object getSystemService(String name)
+    - Context getBaseContext()
+}
+class Activity {
+    - Object getSystemService(String name)
+}
+class SurfaceViewActivity
+
+Context <|-- ContextWrapper
+Context <|-- ContextImpl
+ContextWrapper <|-- ContextThemeWrapper
+ContextThemeWrapper <|-- Activity
+Activity <|-- SurfaceViewActivity
+
+ContextWrapper .> ContextImpl
+
+@enduml

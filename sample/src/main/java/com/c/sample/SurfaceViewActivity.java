@@ -10,6 +10,7 @@ import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraDevice;
 import android.hardware.camera2.CameraManager;
 import android.hardware.camera2.CaptureRequest;
+import android.hardware.camera2.TotalCaptureResult;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
@@ -55,7 +56,6 @@ public class SurfaceViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_surface);
 
         mCameraManager = (CameraManager) getSystemService(CAMERA_SERVICE);
-        CameraManager cameraManager = (CameraManager) getSystemService(CAMERA_SERVICE);
 
         ImageView thumbnailImage = findViewById(R.id.iv_thumbnail);
         mCameraId = String.valueOf(CameraCharacteristics.LENS_FACING_BACK);
@@ -96,7 +96,6 @@ public class SurfaceViewActivity extends AppCompatActivity {
             }
         });
 
-        Log.i(TAG, "onCreate: " + mCameraManager + ", " + cameraManager);
         mCameraThread = new HandlerThread("camera");
         mCameraThread.start();
         mHandler = new Handler(mCameraThread.getLooper());
@@ -154,16 +153,16 @@ public class SurfaceViewActivity extends AppCompatActivity {
         mCameraManager.openCamera(mCameraId, stateCallback, mHandler);
     }
 
-    private void initPreviewRequest(CameraDevice camera, SurfaceHolder holder) throws CameraAccessException {
-        CaptureRequest.Builder captureRequest = camera.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
+    private void initPreviewRequest(CameraDevice cameraDevice, SurfaceHolder holder) throws CameraAccessException {
+        CaptureRequest.Builder captureRequest = cameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
         captureRequest.addTarget(holder.getSurface());
         CameraCaptureSession.StateCallback stateCallback = new CameraCaptureSession.StateCallback() {
             @Override
-            public void onConfigured(@NonNull CameraCaptureSession session) {
+            public void onConfigured(@NonNull CameraCaptureSession cameraCaptureSession) {
                 try {
                     // 开始预览，即一直发送预览的请求
-                    mCameraCaptureSession = session;
-                    session.setRepeatingRequest(captureRequest.build(), null, mHandler);
+                    mCameraCaptureSession = cameraCaptureSession;
+                    cameraCaptureSession.setRepeatingRequest(captureRequest.build(), null, mHandler);
 
                 } catch (CameraAccessException e) {
                     toast("request failed");
@@ -178,7 +177,7 @@ public class SurfaceViewActivity extends AppCompatActivity {
         };
 
         // handle 传入 null 表示使用当前线程的 Looper
-        camera.createCaptureSession(Arrays.asList(holder.getSurface(), mImageReader.getSurface()), stateCallback, mHandler);
+        cameraDevice.createCaptureSession(Arrays.asList(holder.getSurface(), mImageReader.getSurface()), stateCallback, mHandler);
     }
 
     private void toast(String msg) {

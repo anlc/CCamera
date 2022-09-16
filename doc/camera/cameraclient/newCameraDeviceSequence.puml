@@ -1,0 +1,16 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+participant Activity
+    
+Activity -> CameraManager: openCamera(0, stateCallback, mHandler)
+CameraManager -> CameraManager: openCameraDeviceUserAsync(cameraId, callback, executor, clientUid, oomScoreOffset)
+CameraManager -> CameraDeviceImpl: CameraDeviceImpl deviceImpl = new CameraDeviceImpl(..)
+CameraManager -> CameraDeviceImpl: ICameraDeviceCallbacks callbacks = deviceImpl.getCallbacks()
+CameraManager -> CameraManagerGlobal: ICameraService cameraService = CameraManagerGlobal.get().getCameraService();
+CameraManager -> CameraManagerGlobal: ICameraDeviceUser cameraUser = cameraService.connectDevice()
+CameraManager -> CameraDeviceImpl: deviceImpl.setRemoteDevice(cameraUser)
+CameraManager <-- CameraDeviceImpl: sessionCallback.onOpened(CameraDeviceImpl.this)
+@enduml
