@@ -1,27 +1,60 @@
 @startuml
-'https://plantuml.com/class-diagram
+'https://plantuml.com.class-diagram
 
-abstract class AbstractList
-abstract AbstractCollection
-interface List
-interface Collection
-
-List <|-- AbstractList
-Collection <|-- AbstractCollection
-
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
-
-class ArrayList {
-Object[] elementData
-size()
+package frameworks.av.camera.aidl.android.hardware.camera2{
+    class ICameraDeviceCallbacks<<aidl>>
 }
 
-enum TimeUnit {
-DAYS
-HOURS
-MINUTES
-}
+package frameworks.base.core.java.android.hardware.camera2{
 
+    ' camera device
+    abstract class CameraDevice
+    package impl{
+        class CameraDeviceImpl{
+            - ICameraDeviceUserWrapper mRemoteDevice
+            - StateCallback mDeviceCallback
+            - CameraDeviceCallbacks mCallbacks
+            - CameraCaptureSessionCore mCurrentSession
+            + void setRemoteDevice(ICameraDeviceUser remoteDevice)
+        }
+
+        class CameraDeviceCallbacks {
+            + IBinder asBinder()
+        }
+        note left: CameraDeviceCallbacks 客户端的 binder 实例
+
+        CameraDeviceImpl o-- CameraDeviceCallbacks
+        CameraDeviceImpl +-- CameraDeviceCallbacks
+        ICameraDeviceCallbacks <|-- CameraDeviceCallbacks
+    }
+    CameraDevice <|-- CameraDeviceImpl
+
+
+    ' camera manager
+    class CameraManager {
+        - void openCamera(@String cameraId,CameraDevice.StateCallback callback, Handler handler)
+        - CameraDevice openCameraDeviceUserAsync(..)
+    }
+    class CameraManagerGlobal {
+        + IBinder asBinder()
+        + ICameraService getCameraService()
+        - void connectCameraServiceLocked()
+    }
+
+    CameraManager +-- CameraManagerGlobal
+    CameraManager --> CameraDeviceImpl
+
+    ' camera session
+    package impl {
+        interface CameraCaptureSessionCore
+    }
+    abstract class CameraCaptureSession
+    class CameraCaptureSessionImpl {
+        - Surface mInput
+        - CameraCaptureSession.StateCallback mStateCallback
+    }
+    CameraCaptureSessionCore <|.. CameraCaptureSessionImpl
+    CameraCaptureSession <|-- CameraCaptureSessionImpl
+    CameraDeviceImpl o-- CameraCaptureSessionImpl
+}
 @enduml

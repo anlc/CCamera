@@ -1,0 +1,13 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+Activity -> StateCallback: new CameraCaptureSession.StateCallback()
+Activity <-- StateCallback: return StateCallback
+Activity -> CameraDeviceImpl: createCaptureSession(surfaces, stateCallback, mHandler)
+CameraDeviceImpl -> CameraDeviceImpl: createCaptureSessionInternal(...)
+CameraDeviceImpl -> CameraCaptureSessionImpl: new CameraCaptureSessionImpl(mNextSessionId++, input, callback, executor, ..)
+Activity <-- CameraCaptureSessionImpl: mStateCallback.onConfigured(this)
+
+@enduml
