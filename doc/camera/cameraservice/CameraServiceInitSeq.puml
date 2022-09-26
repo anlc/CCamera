@@ -1,5 +1,7 @@
 @startuml
-'https://plantuml.com/class-diagram
+'https://plantuml.com/sequence-diagram
+
+participant sp
 
 main_cameraserver -> BinderService: CameraService::instantiate()
 BinderService -> BinderService: publish()
@@ -15,7 +17,6 @@ CameraService -> CameraService: enumerateProviders()
 CameraService -> CameraProviderManager: new CameraProviderManager()
 CameraProviderManager --> CameraService: return mCameraProviderManager
 
-CameraService -> CameraProviderManager: mCameraProviderManager->initialize(this)
 CameraService -> CameraProviderManager: mCameraProviderManager->initialize(this)
 CameraProviderManager -> ServiceInteractionProxy: mServiceProxy->registerForNotifications
 CameraProviderManager -> CameraProviderManager: addProviderLocked(instance) 连接到hal

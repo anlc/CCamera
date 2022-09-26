@@ -1,0 +1,39 @@
+@startsalt
+{
+{T
++ android
+
+' out ==
+++ out.soong.intermediates| 编译生成文件
++++ hardware.interfaces| HAL层接口
+++++ camera.provider| camera 模块
++++++ 2.4.android.hardware.camera.provider@2.4_genc++_headers.gen
+++++++ android.hardware.camera.provider.2.4| 2.4版本provider目录
++++++++ ICameraProvider.h| 生成的.h文件
++++++++ CameraProviderAll.cpp
++++++++ BpHwCameraProvider.h
++++++++ BnHwCameraProvider.h
+
+' hardware ===
+++ hardware|  HAL层, 包括以下几个目录
+
+' hardware === interfaces
++++ interfaces| HAL接口
+++++ bluetooth| 蓝牙
+++++ camera| 相机
++++++ provider
+++++++ 2.4
++++++++ default
+++++++++ android.hardware.camera.provider@2.4-service.rc| 启动
+++++++++ service.cpp| camera provider 入口
+
+++ system
++++ libhidl.transport
+++++ ServiceManagement.cpp
+++++ include.hidl
++++++ LegacySupport.h
++++++ HidlTransportSupport.h
+
+}
+}
+@endsalt

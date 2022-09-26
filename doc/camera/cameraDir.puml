@@ -1,0 +1,91 @@
+@startsalt
+{
+{T
++ android
+
+' out ==
+++ out.soong.intermediates| 编译生成文件
++++ hardware.interfaces| HAL层接口
+++++ camera.provider| camera 模块
++++++ 2.4.android.hardware.camera.provider@2.4_genc++_headers.gen
+++++++ android.hardware.camera.provider.2.4| 2.4版本provider目录
++++++++ ICameraProvider.h| 生成的.h文件
++++++++ CameraProviderAll.cpp
++++++++ BpHwCameraProvider.h
+
+
+' framework ===
+++ framework| 应用程序框架
+' framework === av
++++ av| 多媒体框架
+
+' av = camera
+++++ camera| 多媒体的相机相关部分
+++++ aidl| aidl接口定义
++++++ android.hardware.camera2| camera 定义的aidl接口
+++++++ ICameraDeviceCallbacks.aidl
+++++++ ICameraDeviceUser.aidl
+
+' av = cameraserver
+++++ cameraserver| server端
+++++++ main_cameraserver.cpp| camera server启动入口
+
+' av = services
+++++ services.camera.libcameraservice| camera server端
++++++ common
+++++++ CameraProviderManager.cpp
+
+' framework === base
++++ base| Android源码的主要核心目录
+++++ core| framework的核心框架组件
+
+' framework === java
++++++ java
+++++++ android.hardware.camera2| camera client 端
++++++++ CameraManager.java
++++++++ CameraDevice.java
++++++++ ICameraServiceListener.java
++++++++ ICameraDeviceCallbacks.java
++++++++ impl
+++++++++ CameraDeviceImpl.java
+++++++++ ICameraDeviceUserWrapper.java
+
++++ native
+++++ libs
++++++ binder.include.binder
+++++++ BinderService.h
+
+
+' hardware ===
+++ hardware|  HAL层, 包括以下几个目录
+
+' hardware === interfaces
++++ interfaces| HAL接口
+++++ bluetooth| 蓝牙
+++++ camera| 相机
+
+' hardware === libhardware
++++ libhardware| 硬件库
+++++ modules| 模块
++++++ audio| 音频
++++++ camera| 相机
+
+
+' system ===
+++ system| Android系统设施, 包括以下几个目录
++++ core| 系统核心工具盒接口
+++++ adb| adb调试工具
+++++ astboot| 快速启动相关
+++++ include| 系统接口头文件
+++++ init| init程序源代码
+++++ libutils| 系统基本库
+++++ libhidl| hidl 库
++++++ transport
+++++++ HidlTransportSupport.cpp
+++++++ ServiceManagement.cpp
+++++++ include.hidl
++++++++ HidlTransportSupport.h
+
+}
+}
+@endsalt

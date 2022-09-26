@@ -1,0 +1,35 @@
+@startsalt
+{
+{T
++ android
+
+' framework ===
+++ framework| 应用程序框架
+' framework === av
++++ av| 多媒体框架
+++++ camera| 多媒体的相机相关部分
+++++ cameraserver| camera server端
+++++++ main_cameraserver.cpp| main类
+++++++ cameraserver.rc| rc文件
+
+
+' service
++++ services
+++++ camera
++++++ libcameraservice
+++++++ common
++++++++ CameraProviderManager.cpp
++++++++ CameraProviderManager.h
+
+' native
++++ native| native实现
+++++ libs
++++++ binder
+++++++ include
++++++++ binder| binder目录
+++++++++ BinderService.h
+++++++++ IServiceManager.h| 路径存疑
+
+}
+}
+@endsalt

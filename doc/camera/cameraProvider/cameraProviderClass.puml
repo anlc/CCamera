@@ -1,0 +1,8 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Service<<cpp>>{
+    int main()
+}
+
+@enduml

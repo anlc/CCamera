@@ -1,13 +1,13 @@
 # Camera2 预览
 
-## Camera2的预览实现大致分四步：
+## 1、Camera2的预览实现大致分四步：
 
 - 通过 ContextImpl 获取 CameraManager
 - 通过 CameraManager 获取 CameraDevice
 - 通过 CameraDevice 获取 CameraCaptureSession
 - 通过 CameraCaptureSession 发送预览请求
 
-### 类功能的说明、时序图、关键代码
+### 1.1、类功能的说明
 
 **CameraManager**
 
@@ -16,17 +16,17 @@ CameraManager 是服务管理类，内部持有一个CameraService服务：Camer
 **CameraDevice**
 
 CameraDevice 可以理解为Camera设备映射，内部持有ICameraDeviceUser。ICameraDeviceUser是 CameraManagerGlobal.connect
-后的返回的实例
+后返回的实例
 
 **CameraCaptureSession**
 
 CameraCaptureSession 是一个会话连接
 
-**时序图**
+### 1.2、时序图
 
 ![cameraPreviewSequence](./camera/cameraclient/cameraPreviewSequence.png)
 
-**关键代码**
+### 1.3、关键代码
 
 ```java
 public class SurfaceViewActivity extends AppCompatActivity {
@@ -93,9 +93,9 @@ public class SurfaceViewActivity extends AppCompatActivity {
 }
 ```
 
-## 具体每一步的细节
+## 2、具体每一步的细节
 
-### 获取 CameraManager
+### 2.1、获取 CameraManager
 
 CameraManager 是通过调用 getSystemService(CAMERA_SERVICE) 获取的
 
@@ -103,15 +103,15 @@ CameraManager 是通过调用 getSystemService(CAMERA_SERVICE) 获取的
 - ContextImpl 调用 SystemServiceRegistry 的静态方法 getSystemService 获取
 - SystemServiceRegistry 内部会缓存一个 CameraManager 对象
 
-**ContextImpl 类图**
+### 2.1.1、ContextImpl 类图
 
 ![ContextImplClass](./context/ContextImplClass.png)
 
-**时序图**
+### 2.1.2、时序图
 
 ![contextImplSequence](./context/contextImplSequence.png)
 
-**关键代码**
+### 2.1.3、关键代码
 
 ```java
 // ContextWrapper 中的 mBase 在 performLaunchActivity 中调用了 attach 赋值的
@@ -157,7 +157,7 @@ class SystemServiceRegistry {
 }
 ```
 
-### 获取 CameraDevice 的流程
+### 2.2、获取 CameraDevice 的流程
 
 - new 一个 CameraDevice 的回调 StateCallback
 - 在调用 `CameraManager#openCamera(String cameraId, StateCallback callback, Handler handler)` 时， 将
@@ -177,11 +177,11 @@ class SystemServiceRegistry {
     - 在 setRemoteDevice 内部会执行一个 Runnable，Runnable内部会回调 StateCallback 的 `onOpened()`
       方法，将CameraDeviceImpl 返回给调用者
 
-**时序图**
+### 2.2.1、时序图
 
 ![newCameraDeviceSequence](./camera/cameraclient/newCameraDeviceSequence.png)
 
-**关键代码**
+### 2.2.2、关键代码
 
 ```java
 class CameraManager {
@@ -288,18 +288,20 @@ public class CameraDeviceImpl extends CameraDevice implements IBinder.DeathRecip
 }
 ```
 
-### 获取 CameraCaptureSession 的流程
+### 2.3、获取 CameraCaptureSession 的流程
 
 - new 一个 CameraCaptureSession 的回调 `CameraCaptureSession.StateCallback`
-- 在调用 `CameraDeviceImpl#createCaptureSession(Collections.singletonList(holder.getSurface()), stateCallback, mHandler)`
+-
+在调用 `CameraDeviceImpl#createCaptureSession(Collections.singletonList(holder.getSurface()), stateCallback, mHandler)`
 时， 将 StateCallback 传进去
-- createCaptureSession 方法中最终会构建对象 CameraCaptureSessionImpl，在构造方法中回调 onConfigured，并把CameraCaptureSessionImpl.this传递过去
+- createCaptureSession 方法中最终会构建对象 CameraCaptureSessionImpl，在构造方法中回调
+  onConfigured，并把CameraCaptureSessionImpl.this传递过去
 
-**时序图**
+### 2.3.1、时序图
 
 ![createCaptureSessionSequence](./camera/cameraclient/createCaptureSessionSequence.png)
 
-**关键代码**
+### 2.3.2、关键代码
 
 ```java
 public class CameraDeviceImpl extends CameraDevice
@@ -351,13 +353,14 @@ public class CameraDeviceImpl extends CameraDevice
         mSessionStateCallback = mCurrentSession.getDeviceStateCallback();
     }
 }
+
 public class CameraCaptureSessionImpl extends CameraCaptureSession
         implements CameraCaptureSessionCore {
     CameraCaptureSessionImpl(int id, Surface input,
                              CameraCaptureSession.StateCallback callback, Executor stateExecutor,
                              android.hardware.camera2.impl.CameraDeviceImpl deviceImpl,
                              Executor deviceStateExecutor, boolean configureSuccess) {
-        
+
         if (configureSuccess) {
             // 回调 onConfigured
             mStateCallback.onConfigured(this);
@@ -374,15 +377,18 @@ public class CameraCaptureSessionImpl extends CameraCaptureSession
 }
 ```
 
-### 通过 CameraCaptureSession 发送预览请求
+### 2.4、通过 CameraCaptureSession 发送预览请求
 
-- session.setRepeatingRequest(captureRequest.build(), null, mHandler) 发送预览请求 
-- setRepeatingRequest 内部会通过 CameraDeviceImpl 最终调用 ICameraDeviceUser 的 submitRequestList 方法，将 CaptureRequest 提交给服务端
+- session.setRepeatingRequest(captureRequest.build(), null, mHandler) 发送预览请求
+- setRepeatingRequest 内部会通过 CameraDeviceImpl 最终调用 ICameraDeviceUser 的 submitRequestList 方法，将
+  CaptureRequest 提交给服务端
+
+### 2.4.1、关键代码
 
 ```java
 public class CameraCaptureSessionImpl extends CameraCaptureSession
         implements CameraCaptureSessionCore {
-    
+
     public int setRepeatingRequest(CaptureRequest request, CaptureCallback callback,
                                    Executor executor) throws CameraAccessException {
         List<CaptureRequest> requestList = new ArrayList<CaptureRequest>();
@@ -393,17 +399,17 @@ public class CameraCaptureSessionImpl extends CameraCaptureSession
     private int submitCaptureRequest(List<CaptureRequest> requestList, CaptureCallback callback,
                                      Executor executor, boolean repeating) throws CameraAccessException {
 
-            SubmitInfo requestInfo;
-            CaptureRequest[] requestArray = requestList.toArray(new CaptureRequest[requestList.size()]);
-            // Convert Surface to streamIdx and surfaceIdx
-            for (CaptureRequest request : requestArray) {
-                request.convertSurfaceToStreamId(mConfiguredOutputs);
-            }
-            
-            // 将 CaptureRequest 提交给服务端
-            requestInfo = mRemoteDevice.submitRequestList(requestArray, repeating);
-            return requestInfo.getRequestId();
+        SubmitInfo requestInfo;
+        CaptureRequest[] requestArray = requestList.toArray(new CaptureRequest[requestList.size()]);
+        // Convert Surface to streamIdx and surfaceIdx
+        for (CaptureRequest request : requestArray) {
+            request.convertSurfaceToStreamId(mConfiguredOutputs);
         }
+
+        // 将 CaptureRequest 提交给服务端
+        requestInfo = mRemoteDevice.submitRequestList(requestArray, repeating);
+        return requestInfo.getRequestId();
     }
+}
 }
 ```

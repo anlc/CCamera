@@ -1,0 +1,56 @@
+@startuml
+
+' main_cameraserver
+class main_cameraserver<<cpp>>
+main_cameraserver -> BinderService
+
+' CameraService
+class CameraService<<cpp>>{
+    {static} char const* getServiceName()
+    virtual void onFirstRef()
+}
+
+note left of CameraService::getServiceName
+    return "media.camera"
+    注册到 SystemService
+end note
+
+note left of CameraService::onFirstRef
+    onFirstRef() 属于其父类 RefBase,
+    该函数在强引用 sp 新增引用计数时调用
+    延迟加载相机 HAL 模块
+end note
+
+' BinderService
+class BinderService{
+    {static} status_t publish(bool allowIsolated, int dumpFlags)
+    {static} void instantiate()
+}
+
+BinderService <|-- CameraService
+StatusListener <|-- CameraService
+BinderService -> ServiceManager
+
+class CameraProviderManager<<cpp>>{
+    - ServiceInteractionProxy* mServiceProxy
+    - {static} HardwareServiceInteractionProxy sHardwareServiceInteractionProxy
+    std::vector<std::string> getCameraDeviceIds()
+    status_t initialize(wp<StatusListener> listener, ServiceInteractionProxy *proxy = &sHardwareServiceInteractionProxy)
+}
+class CameraProviderManager.DeviceInfo1
+interface StatusListener
+CameraProviderManager +-- StatusListener
+
+class HardwareServiceInteractionProxy<<struct>>{
+    bool registerForNotifications(..)
+}
+
+interface ServiceManager
+
+interface ICameraProvider<h>{
+
+}
+
+class CameraProviderAll<<cpp>>
+
+@enduml
